@@ -21,6 +21,7 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $guarded = [];
     protected $appends = ['is_new'];
+    protected $hidden = ['otp'];
 
     /**
      * The attributes that should be hidden for arrays.
