@@ -128,6 +128,8 @@ class AuthController extends Controller
           return response()->json(['user_not_found'], 404);
       }
 
+      return $user_jwt;
+
       if ($request->otp == $user_jwt->otp) {
             $user = User::with('_kota')->with('_kecamatan')->with('_kelurahan')->whereId($user_jwt->id)->first();
             // return $user;
