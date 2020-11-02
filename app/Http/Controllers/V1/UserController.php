@@ -9,6 +9,19 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
+
+// use App\Providers\RouteServiceProvider;
+// use App\Model\User;
+use App\Model\Wilayah;
+// use Illuminate\Foundation\Auth\RegistersUsers;
+// use Illuminate\Support\Facades\Hash;
+// use Illuminate\Support\Facades\Validator;
+// use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
+// use Auth;
+// use Mail;
+
 class UserController extends Controller
 {
   public function login(Request $request)
