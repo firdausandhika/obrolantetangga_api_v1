@@ -128,11 +128,11 @@ class AuthController extends Controller
           return response()->json(['user_not_found'], 404);
       }
 
-      return $user_jwt;
+      // return $user_jwt;
 
       if ($request->otp == $user_jwt->otp) {
             $user = User::with('_kota')->with('_kecamatan')->with('_kelurahan')->whereId($user_jwt->id)->first();
-            // return $user;
+            return $user;
             $this->new_member_posting($user);
             $user->update(['active'=>1]);
             return response()->json(['msg'=>'success', 'Akun Anda telah aktif']);
