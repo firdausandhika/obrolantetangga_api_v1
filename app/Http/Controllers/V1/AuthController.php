@@ -20,8 +20,8 @@ class AuthController extends Controller
   {
       $credentials = $request->only('phone', 'password');
 
-      if ($input['phone'][0] == '0') {
-            $input['phone'] = substr($input['phone'], 1);
+      if ($credentials['phone'][0] == '0') {
+            $credentials['phone'] = substr($credentials['phone'], 1);
       }
       // return $credentials;
 
