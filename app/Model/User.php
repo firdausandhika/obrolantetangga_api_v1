@@ -21,7 +21,7 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $guarded = [];
     protected $appends = ['is_new'];
-    protected $hidden = ['otp'];
+    // protected $hidden = [''];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -29,7 +29,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token','otp',
     ];
 
     /**
