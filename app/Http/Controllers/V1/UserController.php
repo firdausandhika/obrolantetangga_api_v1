@@ -78,7 +78,8 @@ class UserController extends Controller
 
 
       try {
-        $this->send_otp_phone($user);
+        // $this->send_otp_phone($user);
+        $user->makeVisible('otp');
       } catch (\Exception $e) {
         return response()->json(['error' => $e], 500);
       }
