@@ -2,25 +2,15 @@
 namespace App\Http\Controllers\V1;
 
 use JWTAuth;
+use Carbon\Carbon;
 use App\Model\User;
+use App\Model\Wilayah;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
-
-
-// use App\Providers\RouteServiceProvider;
-// use App\Model\User;
-use App\Model\Wilayah;
-// use Illuminate\Foundation\Auth\RegistersUsers;
-// use Illuminate\Support\Facades\Hash;
-// use Illuminate\Support\Facades\Validator;
-// use Illuminate\Http\Request;
-use Carbon\Carbon;
-use Illuminate\Support\Str;
-// use Auth;
-// use Mail;
 
 class UserController extends Controller
 {
@@ -44,68 +34,7 @@ class UserController extends Controller
       return response()->json(compact('token'));
   }
 
-  public function register(Request $request)
-  {
-      $input = $request->except('_token');
-
-      if ($input['phone'][0] == '0') {
-            $input['phone'] = substr($input['phone'], 1);
-      }
-
-      $n = User::where('phone',$request->phone)->count();
-
-      if ($n > 0) {
-          return response()->json(['error' => 'Nomor Handphone Telah Digunakan'], 500);
-      }
-
-      $dn             = Carbon::now();
-      $dt             = Carbon::create($request->tanggal_lahir);
-      $selisih_tahun  =  $dn->diffInYears($dt);
-
-      if ($selisih_tahun < 10) {
-        return response()->json(['error' => 'Anda Tidak Cukup Umur'], 500);
-      }
-
-      $input['password']  = bcrypt($request->password);
-      $input['unik_user'] =  Str::random(10);
-      $input['otp'] = \substr(str_shuffle("0123456789"), 0, 4);
-        // return $input;
-      try {
-          $user = User::create($input);
-      } catch (\Exception $e) {
-        return response()->json(['error' => 'Gagal registerasi Harap Periksa Kembali Data Anda'], 500);
-      }
-
-
-      try {
-        // $this->send_otp_phone($user);
-        // $user->makeVisible('otp');
-      } catch (\Exception $e) {
-        return response()->json(['error' => $e], 500);
-      }
-
-      $token = JWTAuth::fromUser($user);
-
-      return response()->json(compact('user','token'),201);
-
-
-
-      // $validator = Validator::make($request->all(), [
-      //     'name' => 'required|string|max:255',
-      //     'email' => 'required|string|email|max:255|unique:users',
-      //     'password' => 'required|string|min:6|confirmed',
-      // ]);
-      //
-      // if($validator->fails()){
-      //     return response()->json($validator->errors()->toJson(), 400);
-      // }
-
-      // $user = User::create($input);
-      //
-      // $token = JWTAuth::fromUser($user);
-      //
-      // return response()->json(compact('user','token'),201);
-  }
+  
 
   public function send_otp_phone($user)
   {
