@@ -1,15 +1,12 @@
 <?php
-
 namespace App\Http\Controllers\V1;
 
-use App\Http\Controllers\Controller;
+use JWTAuth;
+use App\Model\User;
 use Illuminate\Http\Request;
-
-use App\\Model\User;
-// use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 class UserController extends Controller
