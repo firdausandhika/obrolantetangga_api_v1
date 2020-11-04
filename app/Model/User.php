@@ -20,7 +20,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $guarded = [];
-    protected $appends = ['is_new'];
+    protected $appends = ['is_new','avatar_url','cover_url'];
     // protected $hidden = [''];
 
     /**
@@ -29,8 +29,10 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token','otp',
+        'password', 'remember_token','otp','id','deleted_at','updated_at','kategori_id','user_id','phone'
     ];
+
+    // protected $hidden = [];
 
     /**
      * The attributes that should be cast to native types.
@@ -98,8 +100,7 @@ class User extends Authenticatable implements JWTSubject
         ->orderBy('nama','asc')->get();
     }
 
-    public function getAllProvinsiAttribute()
-    {
+    public function getAllProvinsiAttribute() {
         return Wilayah::whereRaw('LENGTH(kode) < 3')->orderBy('nama','asc')->get();
     }
 
@@ -122,6 +123,14 @@ class User extends Authenticatable implements JWTSubject
     }
     public function getJWTCustomClaims() {
         return [];
+    }
+
+    public function getAvatarUrlAttribute(){
+      return env('APP_URL')."/".$this->avatar;
+    }
+
+    public function getCoverUrlAttribute(){
+      return env('APP_URL')."/".$this->cover;
     }
 
 
