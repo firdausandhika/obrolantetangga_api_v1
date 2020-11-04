@@ -10,6 +10,7 @@ use App\Model\Wilayah;
 use App\Model\ObrolanView;
 
 use App\Model\ObrolanLike;
+use App\Model\ObrolanKomentar;
 use App\Model\ObrolanDisike;
 
 class Obrolan extends Model
@@ -18,6 +19,7 @@ class Obrolan extends Model
     protected $table = 'obrolans';
     protected $guarded = [];
     protected $appends = ['last_time'];
+    protected $hidden = ['id','deleted_at','updated_at','kategori_id','user_id'];
 
     public function scopeFilter($query, $request)
     {
@@ -90,6 +92,18 @@ class Obrolan extends Model
       return auth()->user();
     }
 
+    public function getNewKomentarAttribute() {
+      return ObrolanKomentar::whereObrolanId($this->id)->orderBy('id','desc')
+      ->with('user')
+      ->with(['sub_komen' => function ($sub_query) {
+                // $sub_query->limit(1);
+                $sub_query->orderBy('id','asc');
+                $sub_query->with('user');
+                $sub_query->limit(1);
+            }])
+      ->limit(3)->get();
+    }
+
     // public function getIsLikeAttribute() {
     //   return $this->count_like;
     // }
@@ -117,6 +131,8 @@ class Obrolan extends Model
     public function getIsDislikeAttribute() {
       return ObrolanDislike::whereObrolanId($this->id)->whereUserId($this->current_user->id)->count();
     }
+
+
 
 
 

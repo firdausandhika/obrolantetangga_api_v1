@@ -12,6 +12,7 @@ class ObrolanKomentar extends Model
     protected $table = 'obrolans_komentars';
     protected $guarded = [];
     protected $appends = ['last_time'];
+    protected $hidden = ['id','deleted_at','updated_at','kategori_id','user_id','obrolan_id','parent_id'];
 
     public function user() {
         return $this->belongsTo('App\Model\User', 'user_id');
