@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::fallback(function () {
+  return response()->json(['success'=>false, 'user'=>null,'request'=>null, 'msg' =>'Not Found'], 404);
 });
