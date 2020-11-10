@@ -24,6 +24,8 @@ class AuthController extends V1Controller
       if ($credentials['phone'][0] == '0') {
             $credentials['phone'] = substr($credentials['phone'], 1);
       }
+
+      return $credentials;
       // return $credentials;
 
       try {
@@ -48,7 +50,7 @@ class AuthController extends V1Controller
         return response()->json(['success'=>false, 'request'=>$request->except('_token'), 'msg' =>'phone Tidak Boleh Kosong'], 500);
       }
 
-      
+
       if ($request->nama == null) {
         return response()->json(['success'=>false, 'request'=>$request->except('_token'), 'msg' =>'Nama Tidak Boleh Kosong'], 500);
       }
@@ -118,7 +120,7 @@ class AuthController extends V1Controller
       if ($request->phone[0] == '0') {
         $request->merge(['phone' => substr($request->phone, 1)]);
       }
-      
+
       $user = User::wherePhone($request->phone)->first();
 
       try {
@@ -132,9 +134,9 @@ class AuthController extends V1Controller
         'token'=> str_replace('-', '', $faker->uuid)
       ]);
 
-  
+
       $this->send_sms_link_reset($password_reset,$user);
- 
+
 
       return response()->json(['success'=>true, 'request'=>$request->except('_token'),'msg' =>'SMS Telah Dikirim','user'=>$user],201);
     }
@@ -243,7 +245,7 @@ class AuthController extends V1Controller
       $user->update(['active'=>1]);
       return response()->json(['success'=>true, 'msg' =>'Akun Anda telah aktif', 'user'=>$user_jwt,'request'=>$request->except('_token')]);
 
-       
+
     }
 
     public function new_member_posting($user)

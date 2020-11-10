@@ -1,24 +1,22 @@
 <?php
 namespace App\Http\Controllers\V1;
 
+use App\Model\User;
+use App\Model\Notif;
 use App\Model\Obrolan;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use App\Model\ObrolanLike;
+use App\Model\ObrolanPoin;
+use App\Model\ObrolanView;
+use App\Model\ObrolanDislike;
 use App\Model\ObrolanKomentar;
 use App\Model\ModelTmpKomentar;
+
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\V1\V1Controller;
 
-// use Illuminate\Support\Str;
-// use Illuminate\Http\Request;
-use App\Model\ObrolanLike;
-use App\Model\ObrolanDislike;
-use App\Model\ObrolanPoin;
-// use App\Model\Obrolan;
-use App\Model\ObrolanView;
-// use App\Model\ObrolanKomentar;
-use App\Model\User;
-use App\Model\Notif;
 
 class KomentarController extends V1Controller
 {
@@ -94,8 +92,12 @@ class KomentarController extends V1Controller
      */
      public function store(Request $request)
      {
-       // return $request;
-       // return parent_komentar_unik
+       if (!$request->komentar) {
+         $this->res->success =  false;
+         $this->res->msg =  "Komentar Tidak Boleh Kosong";
+         return \response()->json($this->res,404);
+       }
+
        $obrolan = Obrolan::whereUnik($request->obrolan_unik)->first();
 
        if (!$obrolan) {
@@ -111,7 +113,8 @@ class KomentarController extends V1Controller
          "obrolan_id"  =>$obrolan->id,
          "komentar"    =>\nl2br(htmlspecialchars($request->komentar)),
          "user_id"     =>$user->id,
-         "parent_id"   =>$request->parent_komentar_unik
+         "parent_id"   =>$request->parent_komentar_unik,
+         'unik'        => $request->obrolan_unik.'_'.Str::random(20),
        ]);
 
        ObrolanPoin::create(['obrolan_id'=>$obrolan->id, 'user_id'=>$user->id,'point'=>1,'model_name'=>'ObrolanKomentar','model_id'=>$obrolan_komentar->id]);
@@ -135,7 +138,7 @@ class KomentarController extends V1Controller
          "count_comment" => $count_comment,
        ]);
 
-       $this->res->data = $obrolan_komentar;
+       $this->res->data = ['komentar'=>$obrolan_komentar];
        return \response()->json($this->res);
 
        // return response()->json($data);
@@ -148,9 +151,19 @@ class KomentarController extends V1Controller
      * @param  \App\Model\ObrolanKomentar  $obrolanKomentar
      * @return \Illuminate\Http\Response
      */
-    public function show(ObrolanKomentar $obrolanKomentar,$obrolan_unik)
+    public function show(ObrolanKomentar $obrolanKomentar,$unik)
     {
+      $obrolan_komentar = ObrolanKomentar::whereUnik($unik)->first();
 
+      if (!$obrolan_komentar) {
+        $this->res->success =  false;
+        $this->res->msg =  "Data Not Found";
+        return \response()->json($this->res,404);
+      }
+
+
+      $this->res->data = ['komentar'=>$obrolan_komentar];
+      return \response()->json($this->res);
     }
 
     /**
@@ -171,9 +184,29 @@ class KomentarController extends V1Controller
      * @param  \App\Model\ObrolanKomentar  $obrolanKomentar
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ObrolanKomentar $obrolanKomentar)
+    public function update($unik,Request $request)
     {
-        //
+      if (!$request->komentar) {
+        $this->res->success =  false;
+        $this->res->msg =  "Komentar Tidak Boleh Kosong";
+        return \response()->json($this->res,404);
+      }
+
+      $obrolan_komentar = ObrolanKomentar::whereUnik($unik)->first();
+
+      if (!$obrolan_komentar) {
+        $this->res->success =  false;
+        $this->res->msg =  "Data Not Found";
+        return \response()->json($this->res,404);
+      }
+
+      $obrolan_komentar->update([
+        "komentar"    =>\nl2br(htmlspecialchars($request->komentar)),
+      ]);
+
+      $this->res->data = ['komentar'=>$obrolan_komentar];
+      return \response()->json($this->res);
+
     }
 
     /**
@@ -182,18 +215,9 @@ class KomentarController extends V1Controller
      * @param  \App\Model\ObrolanKomentar  $obrolanKomentar
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$komentar_id)
+    public function destroy(Request $request,$unik)
     {
-      // return $request;
-      $obrolan = Obrolan::whereUnik($request->obrolan_unik)->first();
-
-      if (!$obrolan) {
-        $this->res->success =  false;
-        $this->res->msg =  "Obrolan Not Found";
-        return \response()->json($this->res,404);
-      }
-
-      $obrolan_komentar = ObrolanKomentar::whereId($komentar_id)->first();
+      $obrolan_komentar = ObrolanKomentar::whereUnik($unik)->first();
 
       if (!$obrolan_komentar) {
         $this->res->success =  false;
@@ -201,8 +225,16 @@ class KomentarController extends V1Controller
         return \response()->json($this->res,404);
       }
 
+      $obrolan = Obrolan::whereId($obrolan_komentar->obrolan_id)->first();
+
+      if (!$obrolan) {
+        $this->res->success =  false;
+        $this->res->msg =  "Data Not Found";
+        return \response()->json($this->res,404);
+      }
+
       $obrolan_komentar->delete();
-      $obrolan->increment('poin');
+      $obrolan->decrement('poin');
       $this->res->msg = "Berhasil Dihapus";
       return \response()->json($this->res);
     }

@@ -37,9 +37,16 @@ Route::name('v1.')->prefix('v1')->group(function() {
 
   Route::resource('obrolan', 'V1\ObrolanController');
   Route::resource('komentar', 'V1\KomentarController');
-  Route::resource('like', 'V1\LikeController');
-  Route::resource('dislike', 'V1\DislikeController');
+  Route::resource('like', 'V1\LikeController')->only(['store']);
+  Route::resource('dislike', 'V1\DislikeController')->only(['store']);
   Route::resource('report', 'V1\ReportController');
+
+  Route::post('cover', 'V1\CoverController@store')->name('cover');
+  Route::post('avatar', 'V1\AvatarController@store')->name('avatar');
+
+  Route::get('trending', 'V1\TrendingController@index')->name('trending');
+
+  // Route::resource('report', 'V1\ReportController');
 
 
 });
