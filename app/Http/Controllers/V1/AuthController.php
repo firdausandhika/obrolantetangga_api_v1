@@ -25,7 +25,7 @@ class AuthController extends V1Controller
             $credentials['phone'] = substr($credentials['phone'], 1);
       }
 
-      return $credentials;
+      // return $credentials;
       // return $credentials;
 
       try {
