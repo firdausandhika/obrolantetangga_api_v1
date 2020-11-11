@@ -50,20 +50,20 @@ class TrendingController extends V1Controller
               ->orderBy('poin','desc')
               ->whereRaw('LEFT(wilayah,5)=current_wilayah_user')
               ->whereRaw('LEFT(wilayah,5)="'.$user->kota.'"')
-              ->with('kategori')
-              ->with('obrolan_gambar')
-              ->with(['obrolan_komentar' => function ($query) {
-                  $query->whereNull('parent_id');
-                  $query->orderBy('id','asc');
-                  $query->with('user');
-                  $query->with(['sub_komen' => function ($sub_query) {
-                      // $sub_query->limit(1);
-                      $sub_query->orderBy('id','asc');
-                      $sub_query->with('user');
-                  }]);
-              }])
-              ->with('obrolan_like')
-              ->with('obrolan_dislike')
+              // ->with('kategori')
+              // ->with('obrolan_gambar')
+              // ->with(['obrolan_komentar' => function ($query) {
+              //     $query->whereNull('parent_id');
+              //     $query->orderBy('id','asc');
+              //     $query->with('user');
+              //     $query->with(['sub_komen' => function ($sub_query) {
+              //         // $sub_query->limit(1);
+              //         $sub_query->orderBy('id','asc');
+              //         $sub_query->with('user');
+              //     }]);
+              // }])
+              // ->with('obrolan_like')
+              // ->with('obrolan_dislike')
               ->with('user')
               ->paginate(10);
 
