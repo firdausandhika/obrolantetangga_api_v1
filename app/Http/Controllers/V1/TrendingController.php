@@ -65,7 +65,8 @@ class TrendingController extends V1Controller
               // ->with('obrolan_like')
               // ->with('obrolan_dislike')
               ->with('user')
-              ->paginate(1);
+              ->limit(1)
+              ->get();
 
      Obrolan::whereRaw('LEFT(wilayah,5)=current_wilayah_user')
                ->whereRaw('LEFT(wilayah,5)="'.$user->kota.'"')
