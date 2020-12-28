@@ -36,7 +36,7 @@ class AuthController extends V1Controller
           return response()->json(['success'=>false, 'request'=>$request->except('_token'), 'msg' =>'could_not_create_token'], 500);
       }
 
-      $user = User::wherePhone($request->phone)->first();
+      $user = User::wherePhone($credentials['phone'])->first();
 
       // return response()->json(compact('token','user'));
       return response()->json(['success'=>true, 'msg' =>'Login Berhasil','user'=>$user,'token'=>$token],201);

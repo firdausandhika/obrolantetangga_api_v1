@@ -116,10 +116,7 @@ class DislikeController extends V1Controller
            "count_comment" => $count_comment,
          ]);
          $data = array(
-           "count_dislike" => $count_dislike,
-           "count_like"    => $count_like,
-           "count_view"    => $count_view,
-           "count_comment" => $count_comment,
+           "obrolan" =>$obrolan
          );
 
        $this->res->data = $data;
