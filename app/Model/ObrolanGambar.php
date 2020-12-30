@@ -10,9 +10,13 @@ class ObrolanGambar extends Model
     use SoftDeletes;
     protected $table = 'obrolans_gambars';
     protected $guarded = [];
-    protected $appends = ['image_url'];
+    protected $appends = ['image_url','type'];
 
     public function getImageUrlAttribute(){
       return env('APP_URL')."/storage/obrolan"."/".$this->gambar;
+    }
+
+    public function getTypelAttribute(){
+      return 'image';
     }
 }
