@@ -16,7 +16,7 @@ class ObrolanGambar extends Model
       return env('APP_URL')."/storage/obrolan"."/".$this->gambar;
     }
 
-    public function getTypelAttribute(){
+    public function getTypeAttribute(){
       return 'image';
     }
 }
