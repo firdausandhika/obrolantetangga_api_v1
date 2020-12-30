@@ -109,6 +109,10 @@ class DislikeController extends V1Controller
          $count_view     = ObrolanView::whereObrolanId($obrolan->id)->count();
          $count_comment  = ObrolanKomentar::whereNull('parent_id')->whereObrolanId($obrolan->id)->count();
 
+         $obrolan->append('is_like');
+         $obrolan->append('is_dislike');
+         $obrolan->append('media');
+
          $obrolan->update([
            "count_dislike" => $count_dislike,
            "count_like"    => $count_like,
