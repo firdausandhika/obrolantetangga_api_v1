@@ -16,7 +16,7 @@ class ObrolanVideo extends Model
       return env('APP_URL')."/storage/obrolan"."/".$this->video;
     }
 
-    public function getTypelAttribute(){
+    public function getTypeAttribute(){
       return 'video';
     }
 }
