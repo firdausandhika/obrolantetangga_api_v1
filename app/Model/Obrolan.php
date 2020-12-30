@@ -104,6 +104,19 @@ class Obrolan extends Model
       ->limit(3)->get();
     }
 
+    public function obrolan_video() {
+      return $this->hasMany('App\Model\ObrolanVideo');
+  }
+
+    public function getMediaAttribute() {
+     $array_merge = array_merge(\json_decode($this->obrolan_gambar), \json_decode($this->obrolan_video));
+     usort($array_merge,function($a1, $a2) {
+          return $a1->urutan - $a2->urutan; // $v2 - $v1 to reverse direction
+       });
+
+       return $array_merge;
+   }
+
     // public function getIsLikeAttribute() {
     //   return $this->count_like;
     // }

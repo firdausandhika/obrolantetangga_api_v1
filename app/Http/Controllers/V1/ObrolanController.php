@@ -240,6 +240,7 @@ class ObrolanController extends V1Controller
           // $items->append('current_user');
           $items->append('is_like');
           $items->append('is_dislike');
+          $items->append('media');
          });
       $this->res->data =  ['obrolans'=>$obrolans,'next_token'=>$next_token];
 
