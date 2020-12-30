@@ -10,9 +10,9 @@ class ObrolanVideo extends Model
     use SoftDeletes;
     protected $table = 'obrolans_videos';
     protected $guarded = [];
-    protected $appends = ['image_url','type'];
+    protected $appends = ['video_url','type'];
 
-    public function getImageUrlAttribute(){
+    public function getVideoUrlAttribute(){
       return env('APP_URL')."/storage/obrolan"."/".$this->video;
     }
 
