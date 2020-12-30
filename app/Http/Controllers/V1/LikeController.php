@@ -52,6 +52,7 @@ class LikeController extends V1Controller
      */
     public function store(Request $request)
     {
+      // return $request;
       $user = $this->user;
       if (!$request->obrolan_unik) {
         $this->res->success =  false;
@@ -108,6 +109,10 @@ class LikeController extends V1Controller
         $count_like     = ObrolanLike::whereObrolanId($obrolan->id)->count();
         $count_view     = ObrolanView::whereObrolanId($obrolan->id)->count();
         $count_comment  = ObrolanKomentar::whereNull('parent_id')->whereObrolanId($obrolan->id)->count();
+
+        $obrolan->append('is_like');
+        $obrolan->append('is_dislike');
+        $obrolan->append('media');
 
         $obrolan->update([
           "count_dislike" => $count_dislike,
