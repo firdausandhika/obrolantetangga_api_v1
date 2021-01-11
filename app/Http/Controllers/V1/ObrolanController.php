@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\V1\V1Controller;
 use Storage;
+use App\Model\ObrolanGambar;
 
 class ObrolanController extends V1Controller
 {
