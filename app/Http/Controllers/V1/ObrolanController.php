@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\V1\V1Controller;
 use Storage;
 use App\Model\ObrolanGambar;
+use App\Model\ObrolanVideo;
 
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
