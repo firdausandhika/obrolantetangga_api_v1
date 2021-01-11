@@ -72,7 +72,7 @@ class ObrolanController extends V1Controller
             foreach ($files as $file) {
               try {
                   $extension = $file->extension();
-                  $name_file = $akun->unik_user . Str::random(5) . '.' . $extension;
+                  $name_file = $this->user->unik_user . Str::random(5) . '.' . $extension;
                   Storage::putFileAs('public/obrolan', $file, $name_file);
 
                   // proses kompresi
