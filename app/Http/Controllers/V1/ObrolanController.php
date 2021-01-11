@@ -119,6 +119,43 @@ class ObrolanController extends V1Controller
               }
             }
 
+
+            if ($files_video = $request->file('video')) {
+              foreach ($files_video as $file) {
+                try {
+                    $extension = $file->extension();
+                    $name_file = $this->user->unik_user . Str::random(5) . '.' . $extension;
+                    Storage::putFileAs('public/obrolan', $file, $name_file);
+
+                    // proses kompresi
+                    $syntax0 = [
+                      "cp",
+                      "/www/wwwroot/api.obrolantetangga.com/storage/app/public/obrolan/".$name_file,
+                      "/www/wwwroot/obrolantetangga.com/storage/app/public/obrolan/"
+                    ];
+
+                    $process0 = new Process($syntax0);
+                    $process0->run();
+
+                    //
+
+                    // if (!$process->isSuccessful()) {
+                    //   // permiison
+                    //       return ProcessFailedException($process);
+                    //   }
+
+                    $name[] = $name_file;
+
+                    ObrolanVideo::create([
+                      'obrolan_id' => $obrolan->id,
+                      'video' => $name_file,
+                    ]);
+                  } catch (\Exception $e) {
+                    return $e;
+                  }
+                }
+              }
+
           $this->res->msg   = "Success";
           $this->res->data  =  ['obrolan'=>$obrolan];
           return \response()->json($this->res);
