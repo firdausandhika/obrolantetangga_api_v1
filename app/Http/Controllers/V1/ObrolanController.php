@@ -12,6 +12,9 @@ use App\Http\Controllers\V1\V1Controller;
 use Storage;
 use App\Model\ObrolanGambar;
 
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+
 class ObrolanController extends V1Controller
 {
     public function __construct(Request $request)
