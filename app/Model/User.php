@@ -20,7 +20,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $guarded = [];
-    protected $appends = ['is_new','avatar_url','cover_url'];
+    protected $appends = ['is_new','avatar_url','cover_url','nama_propinsi','nama_kota','nama_kecamatan','nama_kelurahan'];
     // protected $hidden = [''];
 
     /**
@@ -131,6 +131,22 @@ class User extends Authenticatable implements JWTSubject
 
     public function getCoverUrlAttribute(){
       return env('APP_URL')."/".$this->cover;
+    }
+
+    public function getNamaPropinsiAttribute(){
+      return $this->_provinsi->nama;
+    }
+
+    public function getNamaKotaAttribute(){
+      return $this->_kota->nama;
+    }
+
+    public function getNamaKecamatanAttribute(){
+      return $this->_kecamatan->nama;
+    }
+
+    public function getNamaKelurahanAttribute(){
+      return $this->_kelurahan->nama;
     }
 
 
