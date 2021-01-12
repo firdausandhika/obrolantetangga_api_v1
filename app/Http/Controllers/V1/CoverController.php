@@ -101,14 +101,24 @@ class CoverController extends V1Controller
          Storage::disk('public')->put($imageName, base64_decode($image));
 
          // proses kompresi
+         $syntax0 = [
+           "cp",
+           "/www/wwwroot/api.obrolantetangga.com/storage/app/public/obrolan/".$name_file,
+           "/www/wwwroot/obrolantetangga.com/storage/app/public/obrolan/"
+         ];
+
+         $process0 = new Process($syntax0);
+         $process0->run();
+
+         // proses kompresi
          $syntax = [
            "python3",
            "/www/wwwroot/obrolantetangga.com/storage/app/png_jpg.py",
            "/www/wwwroot/obrolantetangga.com/storage/app/public/".$imageName
          ];
 
-         // $process = new Process($syntax);
-         // $process->run();
+         $process = new Process($syntax);
+         $process->run();
 
          // executes after the command finishes
          // if (!$process->isSuccessful()) {

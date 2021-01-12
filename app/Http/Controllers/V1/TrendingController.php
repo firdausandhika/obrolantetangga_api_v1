@@ -46,29 +46,53 @@ class TrendingController extends V1Controller
      $kategoris = Kategori::where('jenis_id', 1)->orderBy('nama', 'ASC')->get();
      $tetanggas = User::where('id','!=',$user->id)->whereKota($user->kota)->limit(8)->orderBy('id','desc')->get();
 
-     $obrolans = Obrolan::filter($request)
-              ->orderBy('poin','desc')
-              ->whereRaw('LEFT(wilayah,5)=current_wilayah_user')
-              ->whereRaw('LEFT(wilayah,5)="'.$user->kota.'"')
-              // ->with('kategori')
-              // ->with('obrolan_gambar')
-              // ->with(['obrolan_komentar' => function ($query) {
-              //     $query->whereNull('parent_id');
-              //     $query->orderBy('id','asc');
-              //     $query->with('user');
-              //     $query->with(['sub_komen' => function ($sub_query) {
-              //         // $sub_query->limit(1);
-              //         $sub_query->orderBy('id','asc');
-              //         $sub_query->with('user');
-              //     }]);
-              // }])
-              // ->with('obrolan_like')
-              // ->with('obrolan_dislike')
-              ->with('user')
-              ->limit(1)
-              ->get();
+     // $obrolans = Obrolan::filter($request)
+     //          ->orderBy('poin','desc')
+     //          ->whereRaw('LEFT(wilayah,5)=LEFT(current_wilayah_user,5)')
+     //          ->whereRaw('LEFT(wilayah,5)="'.$user->kota.'"')
+     //          // ->with('kategori')
+     //          // ->with('obrolan_gambar')
+     //          // ->with(['obrolan_komentar' => function ($query) {
+     //          //     $query->whereNull('parent_id');
+     //          //     $query->orderBy('id','asc');
+     //          //     $query->with('user');
+     //          //     $query->with(['sub_komen' => function ($sub_query) {
+     //          //         // $sub_query->limit(1);
+     //          //         $sub_query->orderBy('id','asc');
+     //          //         $sub_query->with('user');
+     //          //     }]);
+     //          // }])
+     //          // ->with('obrolan_like')
+     //          // ->with('obrolan_dislike')
+     //          ->with('user')
+     //          ->limit(1)
+     //          ->get();
 
-     Obrolan::whereRaw('LEFT(wilayah,5)=current_wilayah_user')
+     $obrolans = Obrolan::filter($request)
+             ->orderBy('poin','desc')
+             ->whereRaw('LEFT(wilayah,5)=LEFT(current_wilayah_user,5)')
+             ->whereRaw('LEFT(wilayah,5)="'.$user->kota.'"')
+             ->where('poin', '>', 0)
+             // ->where("obrolans.wilayah", "like", Str::substr($user->kota,0,5))
+             // ->orWhere("obrolans.wilayah", "")
+             ->with('kategori')
+             ->with('obrolan_gambar')
+             ->with(['obrolan_komentar' => function ($query) {
+                 $query->whereNull('parent_id');
+                 $query->orderBy('id','asc');
+                 $query->with('user');
+                 $query->with(['sub_komen' => function ($sub_query) {
+                     // $sub_query->limit(1);
+                     $sub_query->orderBy('id','asc');
+                     $sub_query->with('user');
+                 }]);
+             }])
+             ->with('obrolan_like')
+             ->with('obrolan_dislike')
+             ->with('user')
+             ->paginate(10);
+
+     Obrolan::whereRaw('LEFT(wilayah,5)=LEFT(current_wilayah_user,5)')
                ->whereRaw('LEFT(wilayah,5)="'.$user->kota.'"')
                ->whereNotIn('id',$obrolans->pluck('id')->toArray())
                ->update(['rank'=>null]);
