@@ -36,10 +36,11 @@ Route::name('v1.')->prefix('v1')->group(function() {
 
 
   Route::resource('obrolan', 'V1\ObrolanController');
-  Route::resource('komentar', 'V1\KomentarController');
+
   Route::resource('like', 'V1\LikeController')->only(['store']);
   Route::resource('dislike', 'V1\DislikeController')->only(['store']);
   Route::resource('report', 'V1\ReportController');
+  Route::resource('report_iklan_baris', 'V1\ReportIklanBarisController');
 
   Route::post('cover', 'V1\CoverController@store')->name('cover');
   Route::post('avatar', 'V1\AvatarController@store')->name('avatar');
@@ -49,6 +50,17 @@ Route::name('v1.')->prefix('v1')->group(function() {
   Route::get('trending', 'V1\TrendingController@index')->name('trending');
 
   // Route::resource('report', 'V1\ReportController');
+
+  Route::resource('iklan_baris', 'V1\IklanBarisController');
+  Route::resource('komentar', 'V1\KomentarController');
+  Route::resource('visit', 'V1\VisitController');
+
+  Route::resource('profil', 'V1\ProfilController');
+
+  Route::post('setting/change_password', 'V1\SettingController@change_password')->name('change_password');
+  Route::post('setting/change_location', 'V1\SettingController@change_location')->name('change_location');
+  Route::post('setting/change_info', 'V1\SettingController@change_info')->name('change_info');
+  Route::resource('tetangga', 'V1\TetanggaController');
 
 
 });

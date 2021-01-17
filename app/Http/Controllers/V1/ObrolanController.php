@@ -66,6 +66,7 @@ class ObrolanController extends V1Controller
               'unik'=> Str::random(20),
               'kontent'=>\nl2br(htmlspecialchars($request->kontent)),
               'poin'=>0,
+              'current_wilayah_user'=>$this->user->kelurahan,
             ]);
           } catch (\Exception $e) {
             return $e;
@@ -101,12 +102,6 @@ class ObrolanController extends V1Controller
                   $process = new Process($syntax);
                   $process->run();
 
-                  //
-
-                  // if (!$process->isSuccessful()) {
-                  //   // permiison
-                  //       return ProcessFailedException($process);
-                  //   }
 
                   $name[] = $name_file;
 

@@ -66,10 +66,11 @@ class KomentarController extends V1Controller
       ->whereNull('parent_id')
       ->with('user')
       ->with('sub_komen.user')
-      ->limit(10)
+      ->limit(5)
       ->get();
 
       $this->view($komentars,$this->user,$next_token);
+      $this->res->data =  ['komentars'=>$komentars,'next_token'=>$next_token];
 
       return \response()->json($this->res);
     }
@@ -92,9 +93,15 @@ class KomentarController extends V1Controller
      */
      public function store(Request $request)
      {
-       if (!$request->komentar) {
+       if ($request->komentar == null) {
          $this->res->success =  false;
          $this->res->msg =  "Komentar Tidak Boleh Kosong";
+         return \response()->json($this->res,404);
+       }
+
+       if ($request->obrolan_unik == null) {
+         $this->res->success =  false;
+         $this->res->msg =  "Obrolan Unik Tidak Boleh Kosong";
          return \response()->json($this->res,404);
        }
 
