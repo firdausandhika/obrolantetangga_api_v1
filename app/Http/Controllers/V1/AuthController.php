@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\Controllers\V1\V1Controller;
 
+
 class AuthController extends V1Controller
 {
   public function login(Request $request)
@@ -32,7 +33,7 @@ class AuthController extends V1Controller
           if (! $token = JWTAuth::attempt($credentials)) {
               return response()->json(['success'=>false, 'request'=>$request->except('_token'), 'msg' =>'invalid_credentials'], 500);
           }
-      } catch (JWTException $e) {
+      } catch (JWTJWTException $e) {
           return response()->json(['success'=>false, 'request'=>$request->except('_token'), 'msg' =>'could_not_create_token'], 500);
       }
 
@@ -98,15 +99,15 @@ class AuthController extends V1Controller
       $input['otp']       = \substr(str_shuffle("0123456789"), 0, 4);
       try {
           $user = User::create($input);
-      } catch (\Exception $e) {
+      } catch (\JWTException $e) {
         return response()->json(['success'=>false, 'request'=>$request->except('_token'), 'msg' =>$e], 500);
       }
 
 
       try {
         $this->send_otp_phone($user);
-      } catch (\Exception $e) {
-        return response()->json(['success'=>false, 'request'=>$request->except('_token'), 'msg' =>'Gagal registerasi Harap Periksa Kembali Data Anda'], 500);
+      } catch (\JWTException $e) {
+        return response()->json(['success'=>false, 'request'=>$request->except('_token'), 'msg' =>$e], 500);
       }
 
       $token = JWTAuth::fromUser($user);
@@ -125,7 +126,7 @@ class AuthController extends V1Controller
 
       try {
         $user->nama;
-      } catch (\Exception $e) {
+      } catch (\JWTException $e) {
         return response()->json(['success'=>false, 'request'=>$request->except('_token'), 'msg' =>'User Tidak Ada'], 500);
       }
 
@@ -141,88 +142,158 @@ class AuthController extends V1Controller
       return response()->json(['success'=>true, 'request'=>$request->except('_token'),'msg' =>'SMS Telah Dikirim','user'=>$user],201);
     }
 
-    public function send_sms_link_reset($password_reset,$user)
+    public function send_sms_link_reset($password_reset,$users)
     {
-      // KIRIM SMS
-        // setting
-        $apikey      = 'ba303b7838da487b5b00d36c03941f57'; // api key
-        $urlendpoint = 'http://sms114.xyz/sms/api_sms_otp_send_json.php'; // url endpoint api
-        $callbackurl = ''; // url callback get status sms
 
-        // create header json
-        $senddata = array(
-            'apikey' => $apikey,
-            'callbackurl' => $callbackurl,
-            'datapacket' => array()
+        $number = $users->nomor;
+        $rtrim = $number - rtrim('0');
+        // $users = User::wherePhone($rtrim)->first();
+        // dd($users);
+        $faker = \Faker\Factory::create('id_ID');
+        // $user =  User::wherePhone($users)->first();
+        $password_reset = PasswordReset::create([
+            'unik_user' => $users->unik_user,
+            'token' => str_replace('-', '', $faker->uuid)
+        ]);
+        // dd($user);
+        $message = "Ini adalah Link rahasia untuk mereset password akun ObrolanTetangga anda " .\URL::to('/') . "/" . "reset_password" . "/" . $password_reset->token . ". Silahkan klik atau buka Link tersebut pada browser anda. Jangan sebarkan kepada siapapun bahkan kepada pihak ObrolanTetangga sekalipun. Hati-hati penipuan!";
+        // dd("+62".$users->phone);
+        $key_demo = '3b36864224329f39dd3b97183c60bf8710a5127efa53cdd9';
+        $url = 'http://116.203.191.58/api/send_message';
+        $data = array(
+            "phone_no" => "+62" . $users->phone,
+            "key"     => $key_demo,
+            "message" => $message
         );
 
-        if ($user->phone[0] != '0') {
-          $user->phone = '0'.$user->phone;
-        }
+        $data_string = json_encode($data, 1);
 
-        // create detail data json
-        $wew = \URL::to('/')."/"."reset_password"."/".$password_reset->token;
-        $message = "[obrolantetangga] Klik tautan ini untuk mengganti password ".$wew;
-        array_push($senddata['datapacket'], array(
-            'number' => $user->phone,
-            'message' => $message
-        ));
-        // sending
-        $request = json_encode($senddata);
-        $curlHandle = curl_init($urlendpoint);
-        curl_setopt($curlHandle, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($curlHandle, CURLOPT_POSTFIELDS, $request);
-        curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curlHandle, CURLOPT_HTTPHEADER, array(
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_VERBOSE, 0);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 360);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/json',
-            'Content-Length: ' . strlen($request)
+            'Content-Length: ' . strlen($data_string),
+            'Authorization: Basic dXNtYW5ydWJpYW50b3JvcW9kcnFvZHJiZWV3b293YToyNjM3NmVkeXV3OWUwcmkzNDl1ZA=='
         ));
-        curl_setopt($curlHandle, CURLOPT_TIMEOUT, 30);
-        curl_setopt($curlHandle, CURLOPT_CONNECTTIMEOUT, 30);
-        $respon = curl_exec($curlHandle);
-        curl_close($curlHandle);
+        echo $res = curl_exec($ch);
+        curl_close($ch);
+
+      // // KIRIM SMS
+      //   // setting
+      //   $apikey      = 'ba303b7838da487b5b00d36c03941f57'; // api key
+      //   $urlendpoint = 'http://sms114.xyz/sms/api_sms_otp_send_json.php'; // url endpoint api
+      //   $callbackurl = ''; // url callback get status sms
+      //
+      //   // create header json
+      //   $senddata = array(
+      //       'apikey' => $apikey,
+      //       'callbackurl' => $callbackurl,
+      //       'datapacket' => array()
+      //   );
+      //
+      //   if ($user->phone[0] != '0') {
+      //     $user->phone = '0'.$user->phone;
+      //   }
+      //
+      //   // create detail data json
+      //   $wew = \URL::to('/')."/"."reset_password"."/".$password_reset->token;
+      //   $message = "[obrolantetangga] Klik tautan ini untuk mengganti password ".$wew;
+      //   array_push($senddata['datapacket'], array(
+      //       'number' => $user->phone,
+      //       'message' => $message
+      //   ));
+      //   // sending
+      //   $request = json_encode($senddata);
+      //   $curlHandle = curl_init($urlendpoint);
+      //   curl_setopt($curlHandle, CURLOPT_CUSTOMREQUEST, "POST");
+      //   curl_setopt($curlHandle, CURLOPT_POSTFIELDS, $request);
+      //   curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
+      //   curl_setopt($curlHandle, CURLOPT_HTTPHEADER, array(
+      //       'Content-Type: application/json',
+      //       'Content-Length: ' . strlen($request)
+      //   ));
+      //   curl_setopt($curlHandle, CURLOPT_TIMEOUT, 30);
+      //   curl_setopt($curlHandle, CURLOPT_CONNECTTIMEOUT, 30);
+      //   $respon = curl_exec($curlHandle);
+      //   curl_close($curlHandle);
 
     }
 
   public function send_otp_phone($user)
   {
-    // KIRIM SMS
-        // setting
-        $apikey      = 'ba303b7838da487b5b00d36c03941f57'; // api key
-        $urlendpoint = 'http://sms114.xyz/sms/api_sms_otp_send_json.php'; // url endpoint api
-        $callbackurl = ''; // url callback get status sms
+    // // KIRIM SMS
+    //     // setting
+    //     $apikey      = 'ba303b7838da487b5b00d36c03941f57'; // api key
+    //     $urlendpoint = 'http://sms114.xyz/sms/api_sms_otp_send_json.php'; // url endpoint api
+    //     $callbackurl = ''; // url callback get status sms
+    //
+    //     // create header json
+    //     $senddata = array(
+    //         'apikey' => $apikey,
+    //         'callbackurl' => $callbackurl,
+    //         'datapacket' => array()
+    //     );
+    //
+    //     if ($user->phone[0] != '0') {
+    //       $user->phone = '0'.$user->phone;
+    //     }
+    //
+    //     // create detail data json
+    //     $message = "[obrolantetangga] Kode OTP : {$user->otp}. Hati-hati penipuan!";
+    //     array_push($senddata['datapacket'], array(
+    //         'number' => $user->phone,
+    //         'message' => $message
+    //     ));
+    //     // sending
+    //     $request = json_encode($senddata);
+    //     $curlHandle = curl_init($urlendpoint);
+    //     curl_setopt($curlHandle, CURLOPT_CUSTOMREQUEST, "POST");
+    //     curl_setopt($curlHandle, CURLOPT_POSTFIELDS, $request);
+    //     curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
+    //     curl_setopt($curlHandle, CURLOPT_HTTPHEADER, array(
+    //         'Content-Type: application/json',
+    //         'Content-Length: ' . strlen($request)
+    //     ));
+    //     curl_setopt($curlHandle, CURLOPT_TIMEOUT, 30);
+    //     curl_setopt($curlHandle, CURLOPT_CONNECTTIMEOUT, 30);
+    //     $respon = curl_exec($curlHandle);
+    //     curl_close($curlHandle);
 
-        // create header json
-        $senddata = array(
-            'apikey' => $apikey,
-            'callbackurl' => $callbackurl,
-            'datapacket' => array()
-        );
+    // $user = auth()->user();
+       $message = "[obrolantetangga] Ini adalah kode OTP rahasia untuk masuk ke akun ObrolanTetangga anda : {$user->otp}, Jangan sebarkan ke siapapun bahkan ke pihak ObrolanTetangga sekalipun. Hati-hati penipuan!";
+       // dd("+62". $user->phone);
+       $key_demo = '3b36864224329f39dd3b97183c60bf8710a5127efa53cdd9';
+       $url = 'http://116.203.191.58/api/send_message';
+       $data = array(
+           "phone_no" => "+62" . $user->phone,
+           "key"     => $key_demo,
+           "message" => $message
+       );
+       $data_string = json_encode($data,1);
 
-        if ($user->phone[0] != '0') {
-          $user->phone = '0'.$user->phone;
-        }
-
-        // create detail data json
-        $message = "[obrolantetangga] Kode OTP : {$user->otp}. Hati-hati penipuan!";
-        array_push($senddata['datapacket'], array(
-            'number' => $user->phone,
-            'message' => $message
-        ));
-        // sending
-        $request = json_encode($senddata);
-        $curlHandle = curl_init($urlendpoint);
-        curl_setopt($curlHandle, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($curlHandle, CURLOPT_POSTFIELDS, $request);
-        curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curlHandle, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json',
-            'Content-Length: ' . strlen($request)
-        ));
-        curl_setopt($curlHandle, CURLOPT_TIMEOUT, 30);
-        curl_setopt($curlHandle, CURLOPT_CONNECTTIMEOUT, 30);
-        $respon = curl_exec($curlHandle);
-        curl_close($curlHandle);
+       $ch = curl_init($url);
+       curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+       curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+       curl_setopt($ch, CURLOPT_VERBOSE, 0);
+       curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
+       curl_setopt($ch, CURLOPT_TIMEOUT, 360);
+       curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+       curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+       curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+       'Content-Type: application/json',
+       'Content-Length: ' . strlen($data_string),
+       'Authorization: Basic dXNtYW5ydWJpYW50b3JvcW9kcnFvZHJiZWV3b293YToyNjM3NmVkeXV3OWUwcmkzNDl1ZA=='
+       ));
+       echo $res=curl_exec($ch);
+       curl_close($ch);
 
   }
 
@@ -259,5 +330,27 @@ class AuthController extends V1Controller
           'unik'=> Str::random(20),
         ]
       );
+    }
+
+    public function resend_otp()
+    {
+      if (! $user_jwt = JWTAuth::parseToken()->authenticate()) {
+          return response()->json(['success'=>false, 'request'=>$request->except('_token'), 'msg' =>'Akun Tidak Ditemukan'], 404);
+      }
+      try {
+        $user             = User::whereId($user_jwt->id)->first();
+        $user->otp        = \substr(str_shuffle("0123456789"), 0, 4);
+        $user->save();
+      } catch (\JWTException $e) {
+        return array('success'=>$e);
+      }
+
+      try {
+          $this->send_otp_phone($user);
+      } catch (\JWTException $e) {
+        return response()->json(['success'=>false, 'request'=>$request->except('_token'), 'msg' =>$e], 500);
+      }
+
+      return response()->json(['success'=>true, 'request'=>$request->except('_token'), 'msg' =>'OTP berhasil dikirim','user'=>$user],201);
     }
 }
