@@ -25,6 +25,7 @@ Route::name('v1.')->prefix('v1')->group(function() {
   Route::post('login', 'V1\AuthController@login')->name('login');
   Route::post('forgot', 'V1\AuthController@forgot')->name('forgot');
   Route::post('otp', 'V1\AuthController@otp')->name('otp');
+  Route::post('resend_otp', 'V1\AuthController@resend_otp')->name('resend_otp');
   // Route::get('user', 'V1\AuthController@getAuthenticatedUser')->middleware('jwt.verify');
 
   Route::name('wilayah.')->prefix('wilayah')->group(function() {
