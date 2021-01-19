@@ -332,7 +332,7 @@ class AuthController extends V1Controller
       );
     }
 
-    public function resend_otp()
+    public function resend_otp(Request $request)
     {
       if (! $user_jwt = JWTAuth::parseToken()->authenticate()) {
           return response()->json(['success'=>false, 'request'=>$request->except('_token'), 'msg' =>'Akun Tidak Ditemukan'], 404);
