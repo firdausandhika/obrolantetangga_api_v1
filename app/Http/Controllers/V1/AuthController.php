@@ -299,8 +299,10 @@ class AuthController extends V1Controller
 
     public function otp(Request $request)
     {
-      if (! $user_jwt = JWTAuth::parseToken()->authenticate()) {
-          return response()->json(['success'=>false, 'request'=>$request->except('_token'), 'msg' =>'Akun Tidak Ditemukan'], 404);
+      try {
+        $user_jwt = JWTAuth::parseToken()->authenticate();
+      } catch (JWTException $e) {
+        return response()->json(['success'=>false, 'request'=>$request->except('_token'), 'msg' =>'Akun Tidak Ditemukan'], 404);
       }
 
       if ($user_jwt->active > 0) {
@@ -334,9 +336,12 @@ class AuthController extends V1Controller
 
     public function resend_otp(Request $request)
     {
-      if (! $user_jwt = JWTAuth::parseToken()->authenticate()) {
-          return response()->json(['success'=>false, 'request'=>$request->except('_token'), 'msg' =>'Akun Tidak Ditemukan'], 404);
+      try {
+        $user_jwt = JWTAuth::parseToken()->authenticate();
+      } catch (JWTException $e) {
+        return response()->json(['success'=>false, 'request'=>$request->except('_token'), 'msg' =>'Akun Tidak Ditemukan'], 404);
       }
+
       try {
         $user             = User::whereId($user_jwt->id)->first();
         $user->otp        = \substr(str_shuffle("0123456789"), 0, 4);
