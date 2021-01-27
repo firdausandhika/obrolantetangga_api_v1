@@ -47,6 +47,7 @@ Route::name('v1.')->prefix('v1')->group(function() {
   Route::post('avatar', 'V1\AvatarController@store')->name('avatar');
 
   Route::resource('kategori', 'V1\KategoriController')->only(['index']);
+  Route::resource('kategori_report', 'V1\KategoriReportController')->only(['index']);
 
   Route::get('trending', 'V1\TrendingController@index')->name('trending');
 
