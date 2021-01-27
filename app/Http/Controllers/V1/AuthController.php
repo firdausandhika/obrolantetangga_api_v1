@@ -121,12 +121,13 @@ class AuthController extends V1Controller
       if ($request->phone[0] == '0') {
         $request->merge(['phone' => substr($request->phone, 1)]);
       }
+      // return $request->phone;
 
       $user = User::wherePhone($request->phone)->first();
 
       try {
         $user->nama;
-      } catch (\JWTException $e) {
+      } catch (\Exception $e) {
         return response()->json(['success'=>false, 'request'=>$request->except('_token'), 'msg' =>'User Tidak Ada'], 500);
       }
 
@@ -158,8 +159,8 @@ class AuthController extends V1Controller
         // dd($user);
         $message = "Ini adalah Link rahasia untuk mereset password akun ObrolanTetangga anda " .\URL::to('/') . "/" . "reset_password" . "/" . $password_reset->token . ". Silahkan klik atau buka Link tersebut pada browser anda. Jangan sebarkan kepada siapapun bahkan kepada pihak ObrolanTetangga sekalipun. Hati-hati penipuan!";
         // dd("+62".$users->phone);
-        $key_demo = '3b36864224329f39dd3b97183c60bf8710a5127efa53cdd9';
-        $url = 'http://116.203.191.58/api/send_message';
+        $key_demo =env('KEY_WA_DEMO');
+        $url = env('URL_WA');
         $data = array(
             "phone_no" => "+62" . $users->phone,
             "key"     => $key_demo,
@@ -180,7 +181,7 @@ class AuthController extends V1Controller
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/json',
             'Content-Length: ' . strlen($data_string),
-            'Authorization: Basic dXNtYW5ydWJpYW50b3JvcW9kcnFvZHJiZWV3b293YToyNjM3NmVkeXV3OWUwcmkzNDl1ZA=='
+            'Authorization: Basic '.env('AUTH_WA_KEY')
         ));
         echo $res = curl_exec($ch);
         curl_close($ch);
@@ -269,8 +270,8 @@ class AuthController extends V1Controller
     // $user = auth()->user();
        $message = "[obrolantetangga] Ini adalah kode OTP rahasia untuk masuk ke akun ObrolanTetangga anda : {$user->otp}, Jangan sebarkan ke siapapun bahkan ke pihak ObrolanTetangga sekalipun. Hati-hati penipuan!";
        // dd("+62". $user->phone);
-       $key_demo = '3b36864224329f39dd3b97183c60bf8710a5127efa53cdd9';
-       $url = 'http://116.203.191.58/api/send_message';
+       $key_demo =env('KEY_WA_DEMO');
+       $url = env('URL_WA');
        $data = array(
            "phone_no" => "+62" . $user->phone,
            "key"     => $key_demo,
@@ -290,7 +291,7 @@ class AuthController extends V1Controller
        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
        'Content-Type: application/json',
        'Content-Length: ' . strlen($data_string),
-       'Authorization: Basic dXNtYW5ydWJpYW50b3JvcW9kcnFvZHJiZWV3b293YToyNjM3NmVkeXV3OWUwcmkzNDl1ZA=='
+       'Authorization: Basic '.env('AUTH_WA_KEY')
        ));
        echo $res=curl_exec($ch);
        curl_close($ch);
