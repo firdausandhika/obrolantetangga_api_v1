@@ -115,14 +115,27 @@ class KomentarController extends V1Controller
 
 
        $user = $this->user;
+       $parent_komentar_unik = null;
 
-       $obrolan_komentar = ObrolanKomentar::create([
-         "obrolan_id"  =>$obrolan->id,
-         "komentar"    =>\nl2br(htmlspecialchars($request->komentar)),
-         "user_id"     =>$user->id,
-         "parent_id"   =>$request->parent_komentar_unik,
-         'unik'        => $request->obrolan_unik.'_'.Str::random(20),
-       ]);
+       if ($request->parent_komentar_unik != null ) {
+         $pku = ObrolanKomentar::whereUnik($request->parent_komentar_unik)->first();
+         if ($pku) {
+           $parent_komentar_unik = $pku->id;
+         }
+       }
+
+       try {
+         $obrolan_komentar = ObrolanKomentar::create([
+           "obrolan_id"  =>$obrolan->id,
+           "komentar"    =>\nl2br(htmlspecialchars($request->komentar)),
+           "user_id"     =>$user->id,
+           "parent_id"   =>$parent_komentar_unik,
+           'unik'        => $request->obrolan_unik.'_'.Str::random(20),
+         ]);
+       } catch (\Exception $e) {
+         return $e;
+       }
+
 
        ObrolanPoin::create(['obrolan_id'=>$obrolan->id, 'user_id'=>$user->id,'point'=>1,'model_name'=>'ObrolanKomentar','model_id'=>$obrolan_komentar->id]);
        $obrolan->increment('poin');
