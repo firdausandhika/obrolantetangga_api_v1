@@ -12,6 +12,7 @@ use App\Http\Controllers\V1\V1Controller;
 use Storage;
 use App\Model\ObrolanGambar;
 use App\Model\ObrolanVideo;
+use App\Model\User;
 
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
@@ -151,6 +152,9 @@ class ObrolanController extends V1Controller
                   }
                 }
               }
+
+          $count_obrolan = Obrolan::whereUserId($this->user->id)->count();
+          User::whereId($this->user->id)->update(["count_obrolan"=>$count_obrolan]);
 
           $this->res->msg   = "Success";
           $this->res->data  =  ['obrolan'=>$obrolan];

@@ -144,7 +144,7 @@ class SettingController extends V1Controller
         return \response()->json($this->res);
       }
 
-      if ($request->seks == null) {
+      if ($request->seks == null && $request->sex == null) {
         $this->res->success = false;
         $this->res->msg = "jenis kelamin tidak boleh kosong";
         return \response()->json($this->res);
@@ -160,6 +160,11 @@ class SettingController extends V1Controller
       if ($input['phone'][0] == '0') {
             $input['phone'] = substr($input['phone'], 1);
       }
+
+      if (!isset($input['sex'])) {
+        $input['sex'] = $input['seks'];
+      }
+
       $user = User::find($this->user->id);
 
       try {
