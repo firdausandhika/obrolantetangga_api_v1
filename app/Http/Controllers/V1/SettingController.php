@@ -195,7 +195,7 @@ class SettingController extends V1Controller
 
       try {
         $user->update([
-          'token_firebase'=>\bcrypt($request->token_firebase)
+          'token_firebase'=>$request->token_firebase
         ]);
       } catch (\Exception $e) {
         $this->res->success = false;
