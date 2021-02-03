@@ -162,7 +162,9 @@ class SettingController extends V1Controller
       }
 
       if (!isset($input['sex'])) {
-        $input['sex'] = $input['seks'];
+        $input['seks'] = $input['sex'];
+        unset($input['sex']);
+        
       }
 
       $user = User::find($this->user->id);
