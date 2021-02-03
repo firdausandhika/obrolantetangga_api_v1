@@ -181,4 +181,29 @@ class SettingController extends V1Controller
 
 
     }
+
+    public function change_token_firebase(Request $request)
+    {
+
+      if ($request->token_firebase == null) {
+        $this->res->success = false;
+        $this->res->msg = "Token Firebase Tidak Boleh Kosong";
+        return \response()->json($this->res);
+      }
+
+      $user   = User::find($this->user->id);
+
+      try {
+        $user->update([
+          'token_firebase'=>\bcrypt($request->token_firebase)
+        ]);
+      } catch (\Exception $e) {
+        $this->res->success = false;
+        $this->res->msg = $e;
+        return \response()->json($this->res);
+      }
+
+      $this->res->msg   = "Success";
+      return \response()->json($this->res);
+    }
 }

@@ -62,6 +62,7 @@ Route::name('v1.')->prefix('v1')->group(function() {
   Route::post('setting/change_password', 'V1\SettingController@change_password')->name('change_password');
   Route::post('setting/change_location', 'V1\SettingController@change_location')->name('change_location');
   Route::post('setting/change_info', 'V1\SettingController@change_info')->name('change_info');
+  Route::post('setting/change_token_firebase', 'V1\SettingController@change_token_firebase')->name('change_token_firebase');
   Route::resource('tetangga', 'V1\TetanggaController');
 
 
