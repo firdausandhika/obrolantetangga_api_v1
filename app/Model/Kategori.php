@@ -11,7 +11,7 @@ class Kategori extends Model
     protected $table = 'kategoris';
     protected $guarded = [];
     protected $appends = ['image_url'];
-    protected $hidden = ['id','deleted_at','updated_at','kategori_id','user_id','jenis_id'];
+    protected $hidden = ['deleted_at','updated_at','kategori_id','user_id','jenis_id'];
 
     public function getImageUrlAttribute(){
       return env('APP_URL')."/frontend/asset/img/kategori"."/".$this->icon;
