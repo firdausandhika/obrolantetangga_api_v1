@@ -18,7 +18,7 @@ Route::fallback(function () {
 |
 */
 
-
+Route::get('firebase', 'V1\FirebaseController@index');
 
 Route::name('v1.')->prefix('v1')->group(function() {
   Route::post('register', 'V1\AuthController@register')->name('register');
