@@ -19,7 +19,12 @@ class KategoriController extends V1Controller
 
   public function index()
   {
-    $this->res->data =  Kategori::whereJenisId(1)->get();
+    $jenis_id = 1;
+
+    if ($request->jenis_id) {
+      $jenis_id = $request->jenis_id;
+    }
+    $this->res->data =  Kategori::whereJenisId($jenis_id)->get();
     return \response()->json($this->res);
   }
 
