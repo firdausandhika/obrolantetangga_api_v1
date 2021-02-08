@@ -17,7 +17,7 @@ class KategoriController extends V1Controller
       $this->res->request = $request->except('_token');
   }
 
-  public function index()
+  public function index(Request $request)
   {
     $jenis_id = 1;
 
