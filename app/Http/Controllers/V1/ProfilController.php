@@ -9,6 +9,9 @@ use App\Model\User;
 use Illuminate\Support\Str;
 use App\Http\Controllers\V1\ObrolanController;
 
+use App\Model\ObrolanView;
+use App\Model\ModelTmpObrolan;
+
 
 class ProfilController extends V1Controller
 {
@@ -183,5 +186,26 @@ class ProfilController extends V1Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function view($obrolans,$user,$next_token=null)
+    {
+      foreach($obrolans as $obrolan){
+        if ($obrolan->user_id != $user->id) {
+          ObrolanView::firstOrCreate([
+            'obrolan_id'=>$obrolan->id,
+            'user_id'=>$user->id
+          ]);
+        }
+
+        if ($next_token) {
+          ModelTmpObrolan::firstOrCreate([
+            'obrolan_id'=>$obrolan->id,
+            'user_id'=>$user->id,
+            'next_token'=>$next_token
+          ]);
+        }
+      }
     }
 }
