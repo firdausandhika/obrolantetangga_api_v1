@@ -82,9 +82,6 @@ class ProfilController extends V1Controller
           $next_token =  $this->user->unik_user."_".Str::random(10);
         }
 
-        if ($next_tokens) {
-          $next_token = $next_tokens;
-        }
 
         $query = Obrolan::query()->filter($request)
         ->whereNotIn('id', function($q)
