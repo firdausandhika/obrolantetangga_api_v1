@@ -71,7 +71,7 @@ class ProfilController extends V1Controller
 
       public function profil_user(Request $request,$unik_user)
       {
-        $user = User::whereUnik($unik_user)->first();
+        $user = User::whereUnikUser($unik_user)->first();
 
         if (!$user) {
           return response()->json(['success'=>false, 'request'=>$request->except('_token'), 'msg' =>'User Tidak Ada'], 500);
