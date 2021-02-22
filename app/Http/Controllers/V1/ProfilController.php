@@ -72,7 +72,52 @@ class ProfilController extends V1Controller
       public function profil_user(Request $request,$unik_user)
       {
         $user = User::whereUnik($unik_user)->first();
-        $this->res->data =  ['user'=>$user];
+
+        if (!$user) {
+          return response()->json(['success'=>false, 'request'=>$request->except('_token'), 'msg' =>'User Tidak Ada'], 500);
+        }
+
+        $next_token = $request->next_token;
+        if ($next_token == null) {
+          $next_token =  $this->user->unik_user."_".Str::random(10);
+        }
+
+        if ($next_tokens) {
+          $next_token = $next_tokens;
+        }
+
+        $query = Obrolan::query()->filter($request)
+        ->whereNotIn('id', function($q)
+        {
+           $q->from('reports')->whereNull('deleted_at')
+            ->select('obrolan_id')
+            ->where('user_id', auth()->user()->id)->whereNull('kategori_postingan');
+        })
+        ->whereNotIn('id', function($q) use($next_token)
+        {
+           $q->from('model_tmp_obrolans')->whereNull('deleted_at')
+            ->select('obrolan_id')
+            ->where('user_id', $this->user->id)->whereNextToken($next_token);
+        })
+        ->with('kategori')
+        ->with('obrolan_gambar')
+        ->with('user')
+        ->orderBy('created_at', 'DESC')
+        ->where("wilayah", "like", "%{$this->user->kota}%")
+        ->where("user_id",$user->id)
+        ->limit(5);
+
+        $obrolans =  $query->get();
+
+        $this->view($obrolans,$this->user,$next_token);
+        $obrolans->each(function ($items) {
+            $items->append('is_like');
+            $items->append('is_dislike');
+            $items->append('media');
+           });
+
+        $this->res->data =  ['user'=>$user,'obrolans'=>$obrolans,'next_token'=>$next_token];
+
         return \response()->json($this->res);
       }
 
