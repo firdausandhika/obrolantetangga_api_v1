@@ -58,7 +58,7 @@ Route::name('v1.')->prefix('v1')->group(function() {
   Route::resource('visit', 'V1\VisitController');
 
   Route::resource('profil', 'V1\ProfilController');
-  Route::get('profil_user', 'V1\ProfilController@profil_user')->name('profil_user');
+  Route::get('profil_user/{unik_user}', 'V1\ProfilController@profil_user')->name('profil_user');
 
   Route::post('setting/change_password', 'V1\SettingController@change_password')->name('change_password');
   Route::post('setting/change_location', 'V1\SettingController@change_location')->name('change_location');
