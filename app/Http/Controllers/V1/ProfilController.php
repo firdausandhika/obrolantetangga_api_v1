@@ -5,6 +5,7 @@ namespace App\Http\Controllers\V1;
 use App\Http\Controllers\V1\V1Controller;;
 use Illuminate\Http\Request;
 use App\Model\Obrolan;
+use App\Model\User;
 use Illuminate\Support\Str;
 use App\Http\Controllers\V1\ObrolanController;
 
@@ -65,6 +66,13 @@ class ProfilController extends V1Controller
            });
         $this->res->data =  ['obrolans'=>$obrolans,'next_token'=>$next_token];
 
+        return \response()->json($this->res);
+      }
+
+      public function profil_user(Request $request,$unik_user)
+      {
+        $user = User::whereUnik($unik_user)->first();
+        $this->res->data =  ['user'=>$user];
         return \response()->json($this->res);
       }
 
