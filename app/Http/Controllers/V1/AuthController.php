@@ -183,7 +183,7 @@ class AuthController extends V1Controller
             'Content-Length: ' . strlen($data_string),
             'Authorization: Basic '.env('AUTH_WA_KEY')
         ));
-        echo $res = curl_exec($ch);
+        // echo $res = curl_exec($ch);
         curl_close($ch);
 
       // // KIRIM SMS
@@ -293,7 +293,7 @@ class AuthController extends V1Controller
        'Content-Length: ' . strlen($data_string),
        'Authorization: Basic '.env('AUTH_WA_KEY')
        ));
-       echo $res=curl_exec($ch);
+       // echo $res=curl_exec($ch);
        curl_close($ch);
 
   }
