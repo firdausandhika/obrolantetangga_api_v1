@@ -161,11 +161,13 @@ class SettingController extends V1Controller
             $input['phone'] = substr($input['phone'], 1);
       }
 
-      if (!isset($input['sex'])) {
+      if (!isset($input['seks'])) {
         $input['seks'] = $input['sex'];
         unset($input['sex']);
         
       }
+      
+      unset($input['sex']);
 
       $user = User::find($this->user->id);
 
