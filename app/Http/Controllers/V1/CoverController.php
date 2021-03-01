@@ -110,8 +110,8 @@ class CoverController extends V1Controller
          // proses kompresi
          $syntax0 = [
            "cp",
-           "/www/wwwroot/api.obrolantetangga.com/storage/app/public/obrolan/".$name_file,
-           "/www/wwwroot/obrolantetangga.com/storage/app/public/obrolan/"
+           "/www/wwwroot/api.obrolantetangga.com/storage/app/public/".$name_file,
+           "/www/wwwroot/obrolantetangga.com/storage/app/public/cover/"
          ];
 
          $process0 = new Process($syntax0);

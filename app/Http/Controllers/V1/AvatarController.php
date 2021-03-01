@@ -109,8 +109,8 @@ class AvatarController extends V1Controller
          // proses kompresi
          $syntax0 = [
            "cp",
-           "/www/wwwroot/api.obrolantetangga.com/storage/app/public/obrolan/".$name_file,
-           "/www/wwwroot/obrolantetangga.com/storage/app/public/obrolan/"
+           "/www/wwwroot/api.obrolantetangga.com/storage/app/public/".$imageName,
+           "/www/wwwroot/obrolantetangga.com/storage/app/public/avatar/"
          ];
 
          $process0 = new Process($syntax0);
