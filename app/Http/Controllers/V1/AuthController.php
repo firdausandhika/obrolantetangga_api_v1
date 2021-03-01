@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\Controllers\V1\V1Controller;
+// use Illuminate\Database\Eloquent\Factory;
 
 
 class AuthController extends V1Controller
@@ -358,5 +359,34 @@ class AuthController extends V1Controller
       }
 
       return response()->json(['success'=>true, 'request'=>$request->except('_token'), 'msg' =>'OTP berhasil dikirim','user'=>$user],201);
+    }
+
+    public function create_new_phone_number(Request $request)
+    {
+      $faker = \Faker\Factory::create('id_ID');
+      $user = [
+        'phone'=>str_replace('(+62)','',str_replace(' ','',$faker->phoneNumber)),
+        'name'=>$faker->name,
+
+      ];
+      return response()->json(['success'=>true, 'data'=>$user,'request'=>$request->except('_token'), 'msg' =>'success'],200);
+    }
+
+    public function get_otp(Request $request)
+    {
+      try {
+        $user_jwt = JWTAuth::parseToken()->authenticate();
+      } catch (JWTException $e) {
+        return response()->json(['success'=>false, 'request'=>$request->except('_token'), 'msg' =>'Akun Tidak Ditemukan'], 404);
+      }
+
+      try {
+        $user = User::whereId($user_jwt->id)->first();
+        $otp  = $user->otp;
+      } catch (\JWTException $e) {
+        return array('success'=>$e);
+      }
+
+      return response()->json(['success'=>true, 'data'=>['otp'=>$otp],'request'=>$request->except('_token'), 'msg' =>'success'],200);
     }
 }

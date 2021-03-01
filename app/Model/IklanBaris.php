@@ -19,9 +19,8 @@ class IklanBaris extends Model
 
     public function scopeFilter($query, $request)
     {
-     
-      return $query->where('kontent', 'like', '%'.$request->find.'%');
-      
+      return $query->where('kontent', 'like', '%'.$request->cari.'%');
+
     }
 
     public function kategori() {

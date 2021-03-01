@@ -30,6 +30,9 @@ class TetanggaController extends V1Controller
       $query    = User::query()->where('id','!=',$this->user->id)->orderBy('id','desc');
       $query->whereActive(1);
       $query->whereNotNull('avatar');
+
+      $query1->whereActive(1);
+      $query1->whereNotNull('avatar');
       $kota  = $this->user->_kota->nama;
 
       if ($request->kota) {

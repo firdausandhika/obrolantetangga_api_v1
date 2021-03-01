@@ -100,6 +100,13 @@ class CoverController extends V1Controller
          $imageName = 'cover/'.auth()->user()->unik_user.Carbon::now()->format('y_s_d_m').'.'.$image_extension[1];
          Storage::disk('public')->put($imageName, base64_decode($image));
 
+
+
+       } catch (\Exception $e) {
+         return array('success'=>$e->getMessage());
+       }
+
+       try {
          // proses kompresi
          $syntax0 = [
            "cp",
@@ -124,10 +131,10 @@ class CoverController extends V1Controller
          // if (!$process->isSuccessful()) {
          //     throw new ProcessFailedException($process);
          // }
-
        } catch (\Exception $e) {
-         return array('success'=>$e->getMessage());
+         return array('success'=>false, 'message'=>$e->getMessage());
        }
+
 
        return $this->change_cover($imageName,$request);
      }

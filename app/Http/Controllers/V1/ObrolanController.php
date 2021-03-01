@@ -291,6 +291,15 @@ class ObrolanController extends V1Controller
       ->where("wilayah", "like", "%{$this->user->kota}%")
       ->limit(5);
 
+      if ($request->kategori_id != null) {
+          try {
+            $query->where('kategori_id',$request->kategori_id);
+          } catch (\Exception $e) {
+            // return $e;
+          }
+        }
+
+
       $obrolans =  $query->get();
 
       $this->view($obrolans,$this->user,$next_token);

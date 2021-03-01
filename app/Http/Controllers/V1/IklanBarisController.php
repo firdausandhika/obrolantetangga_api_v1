@@ -50,6 +50,14 @@ class IklanBarisController extends V1Controller
       ->where("wilayah", "like", "%{$this->user->kota}%")
       ->limit(5);
 
+      if ($request->kategori_id != null) {
+          try {
+            $query->where('kategori_id',$request->kategori_id);
+          } catch (\Exception $e) {
+            // return $e;
+          }
+        }
+
        $iklan_baris =  $query->get();
 
         $this->view($iklan_baris,$this->user,$next_token);
