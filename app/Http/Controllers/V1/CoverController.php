@@ -110,7 +110,7 @@ class CoverController extends V1Controller
          // proses kompresi
          $syntax0 = [
            "cp",
-           "/www/wwwroot/api.obrolantetangga.com/storage/app/public/".$name_file,
+           "/www/wwwroot/api.obrolantetangga.com/storage/app/public/".$imageName,
            "/www/wwwroot/obrolantetangga.com/storage/app/public/cover/"
          ];
 
