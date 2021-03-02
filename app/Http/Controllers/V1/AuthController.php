@@ -366,7 +366,7 @@ class AuthController extends V1Controller
       $faker = \Faker\Factory::create('id_ID');
       $user = [
         'phone'=>str_replace('(+62)','',str_replace(' ','',$faker->phoneNumber)),
-        'name'=>$faker->name,
+        'name'=>'testing '.$faker->name,
 
       ];
       return response()->json(['success'=>true, 'data'=>$user,'request'=>$request->except('_token'), 'msg' =>'success'],200);
