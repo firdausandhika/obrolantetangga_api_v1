@@ -35,11 +35,11 @@ class AdsController extends V1Controller
         $data[1]['letak'] = 'iklan_baris';
         $data[1]['image'] = '';
         foreach ($iklan_default_mobile as $key => $value) {
-            if($value->letak == 'trending'){
+            if($value->letak == 'Trending'){
                 $data[0]['image'] = $value->foto_iklan;
             }
 
-            if($value->letak == 'iklan_baris'){
+            if($value->letak == 'IklanBaris'){
                 $data[1]['image'] = $value->foto_iklan;
             }
         }
