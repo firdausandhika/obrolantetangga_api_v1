@@ -34,7 +34,7 @@ class AdsController extends V1Controller
             
         $this->res->msg   = "Success";
         $this->data = IklanBannerLetak::whereHas('iklanbanner', function ($q){
-            $q->where('wilayah', '11.12');
+            $q->where('wilayah', '64.72');
         });
         // ->where('tanggal_awal', '<=', date("Y-m-d"))->where('tanggal_akhir', '>=', date("Y-m-d"))->first()
         return \response()->json($this->res);
