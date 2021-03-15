@@ -33,10 +33,10 @@ class AdsController extends V1Controller
         // ])->first();
             
         $this->res->msg   = "Success";
-        $this->data = IklanBannerLetak::whereHas('iklanbanner', function ($q) {
+        $this->data = IklanBannerLetak::whereHas('iklanbanner', function ($q){
             $q->where('wilayah', $this->user->kota);
-        })->where('tanggal_awal', '<=', date("Y-m-d"))->where('tanggal_akhir', '>=', date("Y-m-d"))->first();
-
+        });
+        // ->where('tanggal_awal', '<=', date("Y-m-d"))->where('tanggal_akhir', '>=', date("Y-m-d"))->first()
         return \response()->json($this->res);
 
         
