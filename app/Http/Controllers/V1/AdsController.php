@@ -28,13 +28,27 @@ class AdsController extends V1Controller
     {
 
         $iklan_default_mobile = IklanDefault::get();
-        $this->res->data = ['iklans'=> $iklan_default_mobile];
+        // $this->res->data = ['iklans'=> $iklan_default_mobile];
+        $data[0]['letak'] = 'trending';
+        $data[0]['image'] = '';
+
+        $data[1]['letak'] = 'iklan_baris';
+        $data[1]['image'] = '';
+        foreach ($iklan_default_mobile as $key => $value) {
+            if($value->letak == 'trending'){
+                $data[0]['image'] = $value->foto_iklan;
+            }
+
+            if($value->letak == 'iklan_baris'){
+                $data[1]['image'] = $value->foto_iklan;
+            }
+        }
             
         $this->res->msg   = "Success";
         $iklans = IklanBannerLetak::whereHas('iklanbanner', function ($q) {
             $q->where('wilayah', $this->user->kota);
         })->where('tanggal_awal', '<=', date("Y-m-d"))->where('tanggal_akhir', '>=', date("Y-m-d"))->first();
-        // $this->res->data = ['iklans'=> $iklans];
+        $this->res->data = ['iklans'=> $iklans,'datas'=>$data];
         // ->where('tanggal_awal', '<=', date("Y-m-d"))->where('tanggal_akhir', '>=', date("Y-m-d"))->first()
         return \response()->json($this->res);
 
