@@ -49,16 +49,16 @@ class AdsController extends V1Controller
             $q->where('wilayah', $this->user->kota);
         })->where('tanggal_awal', '<=', date("Y-m-d"))->where('tanggal_akhir', '>=', date("Y-m-d"))->first();
 
-        // foreach ($iklans as $key => $value) {
-        //     if($value->letak == 'Trending'){
-        //         $data[0]['image'] = $value->foto_iklan_mobile;
-        //     }
+        foreach ($iklans as $key => $value) {
+            if($value->letak == 'Trending'){
+                $data[0]['image'] = $value->foto_iklan_mobile;
+            }
 
-        //     if($value->letak == 'IklanBaris'){
-        //         $data[1]['image'] = $value->foto_iklan_mobile;
-        //     }
+            if($value->letak == 'IklanBaris'){
+                $data[1]['image'] = $value->foto_iklan_mobile;
+            }
 
-        // }
+        }
         $this->res->data = ['iklans'=> $iklans,'datas'=>$data,'iklan_default_mobile'=>$iklan_default_mobile];
         // ->where('tanggal_awal', '<=', date("Y-m-d"))->where('tanggal_akhir', '>=', date("Y-m-d"))->first()
         return \response()->json($this->res);
