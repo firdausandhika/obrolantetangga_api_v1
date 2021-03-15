@@ -59,7 +59,7 @@ class AdsController extends V1Controller
             }
 
         }
-        $this->res->data = ['iklans'=> $iklans,'datas'=>$data,'iklan_default_mobile'=>$iklan_default_mobile];
+        $this->res->data = ['iklans'=>$data];
         // ->where('tanggal_awal', '<=', date("Y-m-d"))->where('tanggal_akhir', '>=', date("Y-m-d"))->first()
         return \response()->json($this->res);
 
