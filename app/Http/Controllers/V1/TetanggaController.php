@@ -48,7 +48,7 @@ class TetanggaController extends V1Controller
         $query->whereKota($this->user->kota);
         $query1->whereKota($this->user->kota);
       }
-      $tetanggas = $query->paginate(5);
+      $tetanggas = $query->paginate(20);
       $n_tetangga = $query->count();
 
       $this->res->msg   = "Success";
