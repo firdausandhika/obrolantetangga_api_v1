@@ -106,7 +106,7 @@ class IklanBarisController extends V1Controller
           }
 
           $this->res->msg   = "Success";
-          $this->res->data  =  ['iklan_baris'=>$iklan_baris];
+          $this->res->data  =  ['iklan_baris'=>IklanBaris::with('kategori')->findOrFail($iklan_baris->id)];
           return \response()->json($this->res);
     }
 
