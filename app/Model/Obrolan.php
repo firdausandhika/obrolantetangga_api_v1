@@ -87,7 +87,7 @@ class Obrolan extends Model
     }
 
     public function getIsLuarKotaAttribute() {
-      return $this->wilayah == $this->current_wilayah_user;
+      return $this->wilayah != $this->current_wilayah_user;
     }
 
 
