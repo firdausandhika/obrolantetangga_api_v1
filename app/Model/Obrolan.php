@@ -18,8 +18,8 @@ class Obrolan extends Model
     use SoftDeletes;
     protected $table = 'obrolans';
     protected $guarded = [];
-    protected $appends = ['last_time'];
-    protected $hidden = ['id','deleted_at','updated_at','kategori_id','user_id','is_luar_kota'];
+    protected $appends = ['last_time','is_luar_kota'];
+    protected $hidden = ['id','deleted_at','updated_at','kategori_id','user_id'];
 
     public function scopeFilter($query, $request)
     {
