@@ -19,7 +19,7 @@ class Obrolan extends Model
     protected $table = 'obrolans';
     protected $guarded = [];
     protected $appends = ['last_time'];
-    protected $hidden = ['id','deleted_at','updated_at','kategori_id','user_id'];
+    protected $hidden = ['id','deleted_at','updated_at','kategori_id','user_id','is_luar_kota'];
 
     public function scopeFilter($query, $request)
     {
@@ -84,6 +84,10 @@ class Obrolan extends Model
 
     public function getKelurahanDataAttribute() {
       return Wilayah::whereKode($this->wilayah)->first();
+    }
+
+    public function getIsLuarKotaAttribute() {
+      return $this->wilayah == $this->current_wilayah_user;
     }
 
 
