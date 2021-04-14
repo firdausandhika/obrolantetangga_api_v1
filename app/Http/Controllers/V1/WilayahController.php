@@ -6,6 +6,8 @@ use App\Model\Wilayah;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\V1\V1Controller;
+use App\Models\Gcp;
+use Storage;
 
 class WilayahController extends V1Controller
 {
@@ -18,6 +20,15 @@ class WilayahController extends V1Controller
 
   public function get_provinsi()
   {
+
+    $disk = Storage::disk('gcs');
+
+      $directory = "alfin_new";
+      if (!file_exists($disk->path($directory))) {
+        $disk->makeDirectory($directory);
+      }
+      $disk->put($directory.'/alfin1.txt', 'alfin');
+
     $this->res->data =  Wilayah::whereRaw("CHAR_LENGTH(kode)=2")
     ->orderBy("nama")->orderBy('nama','asc')->get();
     return \response()->json($this->res);
