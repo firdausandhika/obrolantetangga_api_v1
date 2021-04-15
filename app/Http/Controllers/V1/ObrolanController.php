@@ -166,6 +166,9 @@ class ObrolanController extends V1Controller
           ->append('kota_data')
           ->append('kecamatan_data')
           ->append('kelurahan_data')
+          ->append('is_like')
+          ->append('is_dislike')
+          ->append('media')
         ];
           return \response()->json($this->res);
     }
