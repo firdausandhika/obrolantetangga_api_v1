@@ -27,7 +27,7 @@ class AdsController extends V1Controller
     public function index()
     {
 
-        $iklan_default_mobile = IklanDefault::get();
+        $iklan_default_mobile = IklanDefault::whereDevice('Mobile')->get();
         // $this->res->data = ['iklans'=> $iklan_default_mobile];
         $data[0]['letak'] = 'trending';
         $data[0]['image'] = '';
@@ -43,7 +43,7 @@ class AdsController extends V1Controller
                 $data[1]['image'] = $value->foto_iklan;
             }
         }
-            
+
         $this->res->msg   = "Success";
         $iklans = IklanBannerLetak::whereHas('iklanbanner', function ($q) {
             $q->where('wilayah', $this->user->kota);
@@ -63,7 +63,7 @@ class AdsController extends V1Controller
         // ->where('tanggal_awal', '<=', date("Y-m-d"))->where('tanggal_akhir', '>=', date("Y-m-d"))->first()
         return \response()->json($this->res);
 
-        
+
     }
 
     /**
