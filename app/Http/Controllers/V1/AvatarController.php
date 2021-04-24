@@ -74,7 +74,7 @@ class AvatarController extends V1Controller
          return array('success'=>$e);
        }
 
-         return array('success'=>'true','user'=>$this->user,'msg'=>'Success');
+         return array('success'=>'true','user'=>User::find($this->user->id),'msg'=>'Success');
 
      }
 
