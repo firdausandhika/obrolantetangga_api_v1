@@ -332,6 +332,7 @@ class AuthController extends V1Controller
           'user_id'=>$user->id,
           'wilayah'=>$user->kelurahan,
           'unik'=> Str::random(20),
+          'current_wilayah_user'=>$user->kelurahan,
         ]
       );
     }
