@@ -75,7 +75,7 @@ class CoverController extends V1Controller
          return array('success'=>'e1');
        }
 
-         return array('success'=>'true');
+         return array('success'=>'true','user'=>$this->user,'msg'=>'Success');
 
      }
 
