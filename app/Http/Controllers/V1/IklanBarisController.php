@@ -93,7 +93,7 @@ class IklanBarisController extends V1Controller
 
 
           try {
-            $is_send_wa = 1;
+            $is_send_wa = 0;
 
             if(($request->is_send_wa == 'false') or ($request->is_send_wa == false) or ($request->is_send_wa == 0)){
               $is_send_wa = 0;
