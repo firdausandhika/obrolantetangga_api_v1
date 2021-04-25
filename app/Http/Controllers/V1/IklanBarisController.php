@@ -90,13 +90,20 @@ class IklanBarisController extends V1Controller
         $this->res->success = false;
         return \response()->json($this->res);
       }
+
+
           try {
+            $is_send_wa = 1;
+
+            if(($request->is_send_wa == 'false') or ($request->is_send_wa == false) or ($request->is_send_wa == 0)){
+              $is_send_wa = 0;
+            }
             $iklan_baris = IklanBaris::create([
               'kategori_id'=>$request->kategori_id,
               'user_id'=>$this->user->id,
               'wilayah'=>$this->user->kelurahan,
               'unik'=> Str::random(20),
-              'number_wa'=> $request->is_send_wa ? $request->no_wa : null,
+              'number_wa'=>  ? $request->no_wa : null,
               'kontent'=>\nl2br(htmlspecialchars($request->kontent)),
             ]);
           } catch (\Exception $e) {
