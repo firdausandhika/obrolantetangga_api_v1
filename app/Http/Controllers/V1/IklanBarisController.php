@@ -103,7 +103,7 @@ class IklanBarisController extends V1Controller
               'user_id'=>$this->user->id,
               'wilayah'=>$this->user->kelurahan,
               'unik'=> Str::random(20),
-              'number_wa'=>  ? $request->no_wa : null,
+              'number_wa'=>  $is_send_wa ? $request->no_wa : null,
               'kontent'=>\nl2br(htmlspecialchars($request->kontent)),
             ]);
           } catch (\Exception $e) {
