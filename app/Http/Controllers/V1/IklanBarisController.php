@@ -98,6 +98,10 @@ class IklanBarisController extends V1Controller
             if(($request->is_send_wa == 'false') or ($request->is_send_wa == false) or ($request->is_send_wa == 0)){
               $is_send_wa = 0;
             }
+
+            if(($request->is_send_wa == 'true') or ($request->is_send_wa == true) or ($request->is_send_wa == 1)){
+              $is_send_wa = 0;
+            }
             $iklan_baris = IklanBaris::create([
               'kategori_id'=>$request->kategori_id,
               'user_id'=>$this->user->id,
