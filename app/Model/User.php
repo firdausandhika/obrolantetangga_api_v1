@@ -20,7 +20,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $guarded = [];
-    protected $appends = ['is_new','avatar_url','cover_url','nama_propinsi','nama_kota','nama_kecamatan','nama_kelurahan'];
+    // protected $appends = ['is_new','avatar_url','cover_url','nama_propinsi','nama_kota','nama_kecamatan','nama_kelurahan'];
     // protected $hidden = [''];
 
     /**
@@ -29,7 +29,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token','otp','id','deleted_at','updated_at','kategori_id','user_id','phone'
+        'password', 'remember_token','otp','deleted_at','updated_at','kategori_id','user_id','phone'
     ];
 
     // protected $hidden = [];
