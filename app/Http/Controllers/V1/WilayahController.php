@@ -71,9 +71,15 @@ class WilayahController extends V1Controller
     $error = [];
     foreach ($profils as $key => $profil) {
       try {
-        User::find($profil->id)->update(['cover'=>$profil->cover,'avatar'=>$profil->avatar]);
+        $xxuser = User::find($profil->id)
+        if ($xxuser) {
+          $xxuser->update(['cover'=>$profil->cover,'avatar'=>$profil->avatar]);
+        }else {
+          $error[] = $profil;
+        }
+
       } catch (\Exception $e) {
-        $error = $e->getMessage();
+        $error[] = $e->getMessage();
       }
 
     }
