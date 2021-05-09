@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+
 Route::fallback(function () {
   return response()->json(['success'=>false, 'user'=>null,'request'=>null, 'msg' =>'Not Found'], 404);
 });
@@ -21,6 +22,8 @@ Route::fallback(function () {
 Route::get('firebase', 'V1\FirebaseController@index');
 
 Route::name('v1.')->prefix('v1')->group(function() {
+  Route::post('base64ToFile', 'V1\ObrolanController@base64ToFile')->name('base64ToFile');
+
   Route::post('create_new_phone_number', 'V1\AuthController@create_new_phone_number')->name('create_new_phone_number');
   Route::post('register', 'V1\AuthController@register')->name('register');
   Route::post('get_otp', 'V1\AuthController@get_otp')->name('get_otp');

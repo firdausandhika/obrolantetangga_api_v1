@@ -13,6 +13,7 @@ use Storage;
 use App\Model\ObrolanGambar;
 use App\Model\ObrolanVideo;
 use App\Model\User;
+use \Carbon\Carbon;
 
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
@@ -73,85 +74,14 @@ class ObrolanController extends V1Controller
             return $e;
           }
 
-          $name = array();
-          $name_file = "";
-
-          if ($files = $request->file('gambar')) {
-            foreach ($files as $file) {
-              try {
-                  $extension = $file->extension();
-                  $name_file = $this->user->unik_user . Str::random(5) . '.' . $extension;
-                  Storage::putFileAs('public/obrolan', $file, $name_file);
-
-                  // proses kompresi
-                  $syntax0 = [
-                    "cp",
-                    "/www/wwwroot/api.obrolantetangga.com/storage/app/public/obrolan/".$name_file,
-                    "/www/wwwroot/obrolantetangga.com/storage/app/public/obrolan/"
-                  ];
-
-                  $process0 = new Process($syntax0);
-                  $process0->run();
-
-                  // proses kompresi
-                  $syntax = [
-                    "python3",
-                    "/www/wwwroot/obrolantetangga.com/storage/app/png_jpg.py",
-                    "/www/wwwroot/obrolantetangga.com/storage/app/public/obrolan/".$name_file
-                  ];
-
-                  $process = new Process($syntax);
-                  $process->run();
+        foreach ($request->media as $key => $m) {
+          $this->base64ToFile($m);
+        }
 
 
-                  $name[] = $name_file;
-
-                  ObrolanGambar::create([
-                    'obrolan_id' => $obrolan->id,
-                    'gambar' => $name_file,
-                  ]);
-                } catch (\Exception $e) {
-                  return $e;
-                }
-              }
-            }
 
 
-            if ($files_video = $request->file('video')) {
-              foreach ($files_video as $file) {
-                try {
-                    $extension = $file->extension();
-                    $name_file = $this->user->unik_user . Str::random(5) . '.' . $extension;
-                    Storage::putFileAs('public/obrolan', $file, $name_file);
 
-                    // proses kompresi
-                    $syntax0 = [
-                      "cp",
-                      "/www/wwwroot/api.obrolantetangga.com/storage/app/public/obrolan/".$name_file,
-                      "/www/wwwroot/obrolantetangga.com/storage/app/public/obrolan/"
-                    ];
-
-                    $process0 = new Process($syntax0);
-                    $process0->run();
-
-                    //
-
-                    // if (!$process->isSuccessful()) {
-                    //   // permiison
-                    //       return ProcessFailedException($process);
-                    //   }
-
-                    $name[] = $name_file;
-
-                    ObrolanVideo::create([
-                      'obrolan_id' => $obrolan->id,
-                      'video' => $name_file,
-                    ]);
-                  } catch (\Exception $e) {
-                    return $e;
-                  }
-                }
-              }
 
           $count_obrolan = Obrolan::whereUserId($this->user->id)->count();
           User::whereId($this->user->id)->update(["count_obrolan"=>$count_obrolan]);
@@ -334,5 +264,38 @@ class ObrolanController extends V1Controller
           ]);
         }
       }
+    }
+
+
+    public function base64ToFile($base64)
+    {
+      // $base64 = $r->base64;
+      $disk = Storage::disk('gcs');
+      $base_auth = auth()->user()->unik_user;
+      $base_folder = "{$base_auth}/obrolan";
+
+      if (!file_exists($disk->path("{$base_auth}"))) {
+          $disk->makeDirectory("{$base_auth}");
+        }
+
+      if (!file_exists($disk->path("{$base_folder}"))) {
+          $disk->makeDirectory("{$base_folder}");
+        }
+
+      $pos  = strpos($base64, ';');
+      $base64_extension = explode(':', substr($base64, 0, $pos))[1];
+
+      preg_match("/data:image\/(.*?);/",$base64,$base64_extension); // extract the image extension
+      $base64 = preg_replace('/data:image\/(.*?);base64,/','',$base64); // remove the type part
+      $base64 = str_replace(' ', '+', $base64);
+
+      // if (!in_array(Str::lower($base64_extension[1]),['png','jpg','jpeg'])) {
+      //   // return redirect()->back()->with('danger', );
+      //   return array('success'=>'Gagal upload foto, format Tidak Sesuai');
+      // }
+
+
+      $base64Name = "{$base_folder}/".auth()->user()->unik_user.Carbon::now()->format('y_s_d_m').'.'.$base64_extension[1];
+      Storage::disk('gcs')->put($base64Name, base64_decode($base64));
     }
 }
