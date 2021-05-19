@@ -69,7 +69,7 @@ class AvatarController extends V1Controller
      {
        try {
          $user = User::whereId(auth()->user()->id)->first();
-         $user->update(['avatar'=>$imageName]);
+         $user->update(['avatar'=>"https://storage.googleapis.com/obrolantetangga/".$imageName]);
        } catch (\Exception $e) {
          return array('success'=>$e);
        }
@@ -96,8 +96,10 @@ class AvatarController extends V1Controller
          }
 
 
-         $imageName = 'avatar/'.auth()->user()->unik_user.Carbon::now()->format('y_s_d_m').'.'.$image_extension[1];
-         Storage::disk('public')->put($imageName, base64_decode($image));
+         $imageName = "{$user->unik_user}/avatar/".auth()->user()->unik_user.Carbon::now()->format('y_s_d_m').'.'.$image_extension[1];
+         // Storage::disk('public')->put($imageName, base64_decode($image));
+
+           Storage::disk('gcs')->put($imageName,base64_decode($image));
 
 
 
@@ -105,34 +107,7 @@ class AvatarController extends V1Controller
          return array('success'=>$e->getMessage());
        }
 
-       try {
-         // proses kompresi
-         $syntax0 = [
-           "cp",
-           "/www/wwwroot/api.obrolantetangga.com/storage/app/public/".$imageName,
-           "/www/wwwroot/obrolantetangga.com/storage/app/public/avatar/"
-         ];
 
-         $process0 = new Process($syntax0);
-         $process0->run();
-
-         // proses kompresi
-         $syntax = [
-           "python3",
-           "/www/wwwroot/obrolantetangga.com/storage/app/png_jpg.py",
-           "/www/wwwroot/obrolantetangga.com/storage/app/public/".$imageName
-         ];
-
-         $process = new Process($syntax);
-         $process->run();
-
-         // executes after the command finishes
-         // if (!$process->isSuccessful()) {
-         //     throw new ProcessFailedException($process);
-         // }
-       } catch (\Exception $e) {
-         return array('success'=>false,'message' => $e->getMessage());
-       }
 
 
        return $this->change_avatar($imageName,$request);
