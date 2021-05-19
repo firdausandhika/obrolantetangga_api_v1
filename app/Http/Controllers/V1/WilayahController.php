@@ -182,7 +182,7 @@ ObrolanGambar::create(['id'=>'160','gambar'=>'https://storage.googleapis.com/obr
 ObrolanGambar::create(['id'=>'161','gambar'=>'https://storage.googleapis.com/obrolantetangga/Odzfa0mVh3/obrolan/gambar/Odzfa0mVh3aerCK.png']);
 ObrolanGambar::create(['id'=>'162','gambar'=>'https://storage.googleapis.com/obrolantetangga/Odzfa0mVh3/obrolan/gambar/Odzfa0mVh3hejOs.png']);
 
-return "sukses";
+return "sukses fin";
 
 
     $url = "https://storage.googleapis.com/obrolantetangga";
