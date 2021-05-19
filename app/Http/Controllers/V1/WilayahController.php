@@ -186,7 +186,13 @@ class WilayahController extends V1Controller
 $dx = [];
 foreach ($datas as $key => $data) {
   try {
-    ObrolanGambar::find($data['id'])->update(['gambar'=>$data['gambar']]);
+    $obrx = ObrolanGambar::find($data['id']);
+
+    if ($obrx) {
+      $obrx->update(['gambar'=>$data['gambar']]);
+    }else{
+      $dx[] = $data;
+    }
     // print($data['id']);
   } catch (\Exception $e) {
     $dx[] = $data;
