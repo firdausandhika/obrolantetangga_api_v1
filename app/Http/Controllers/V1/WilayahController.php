@@ -9,6 +9,7 @@ use App\Http\Controllers\V1\V1Controller;
 use App\Models\Gcp;
 use App\Model\User;
 use App\Model\Obrolan;
+use App\Model\ObrolanGambar;
 use Storage;
 
 class WilayahController extends V1Controller
@@ -62,46 +63,168 @@ class WilayahController extends V1Controller
 
   public function copyToGoogle()
   {
+    ObrolanGambar::create(['id'=>'5','gambar'=>'https://storage.googleapis.com/obrolantetangga/5nbpEmr1ns/obrolan/gambar/znF09V_XYfwE.jpg']);
+ObrolanGambar::create(['id'=>'6','gambar'=>'https://storage.googleapis.com/obrolantetangga/sabqI3TvnS/obrolan/gambar/m30PZz4sB_fH.jpeg']);
+ObrolanGambar::create(['id'=>'7','gambar'=>'https://storage.googleapis.com/obrolantetangga/mDGREjwYp2/obrolan/gambar/Z74YmqawdWsH.jpg']);
+ObrolanGambar::create(['id'=>'8','gambar'=>'https://storage.googleapis.com/obrolantetangga/216yybW8Kf/obrolan/gambar/TlZDtvXkAuM0.jpg']);
+ObrolanGambar::create(['id'=>'9','gambar'=>'https://storage.googleapis.com/obrolantetangga/Zd7SZmWljN/obrolan/gambar/4b6DaAzCBtSN.jpg']);
+ObrolanGambar::create(['id'=>'10','gambar'=>'https://storage.googleapis.com/obrolantetangga/12tbDcgGdK/obrolan/gambar/I3R9iXleKdTH.jpg']);
+ObrolanGambar::create(['id'=>'19','gambar'=>'https://storage.googleapis.com/obrolantetangga/alfin/obrolan/gambar/C5JAzZEonlSP.jpg']);
+ObrolanGambar::create(['id'=>'26','gambar'=>'https://storage.googleapis.com/obrolantetangga/alfin/obrolan/gambar/fvqI8lrnab32.jpg']);
+ObrolanGambar::create(['id'=>'32','gambar'=>'https://storage.googleapis.com/obrolantetangga/5nbpEmr1ns/obrolan/gambar/57PtQyKx9h4B.jpg']);
+ObrolanGambar::create(['id'=>'33','gambar'=>'https://storage.googleapis.com/obrolantetangga/alfin/obrolan/gambar/GHnmtSvwuzdc.jpg']);
+ObrolanGambar::create(['id'=>'34','gambar'=>'https://storage.googleapis.com/obrolantetangga/alfin/obrolan/gambar/ZYS6s1rH4Ccu.jpg']);
+ObrolanGambar::create(['id'=>'35','gambar'=>'https://storage.googleapis.com/obrolantetangga/alfin/obrolan/gambar/h7Fuk0JYVl31.jpg']);
+ObrolanGambar::create(['id'=>'36','gambar'=>'https://storage.googleapis.com/obrolantetangga/alfin/obrolan/gambar/uGfMmL1E5n4C.jpg']);
+ObrolanGambar::create(['id'=>'37','gambar'=>'https://storage.googleapis.com/obrolantetangga/alfin/obrolan/gambar/Xt4JUI02Lhe1.jpg']);
+ObrolanGambar::create(['id'=>'38','gambar'=>'https://storage.googleapis.com/obrolantetangga/alfin/obrolan/gambar/BrEHJyOd3wR9.jpg']);
+ObrolanGambar::create(['id'=>'39','gambar'=>'https://storage.googleapis.com/obrolantetangga/alfin/obrolan/gambar/M1vTnYap43id.jpg']);
+ObrolanGambar::create(['id'=>'40','gambar'=>'https://storage.googleapis.com/obrolantetangga/alfin/obrolan/gambar/vEJURDYf9gq5.jpg']);
+ObrolanGambar::create(['id'=>'41','gambar'=>'https://storage.googleapis.com/obrolantetangga/alfin/obrolan/gambar/lAQ6nfJpex4c.jpg']);
+ObrolanGambar::create(['id'=>'42','gambar'=>'https://storage.googleapis.com/obrolantetangga/alfin/obrolan/gambar/W5viJ9s2DxId.jpg']);
+ObrolanGambar::create(['id'=>'43','gambar'=>'https://storage.googleapis.com/obrolantetangga/alfin/obrolan/gambar/mevCtKowqkJl.jpg']);
+ObrolanGambar::create(['id'=>'44','gambar'=>'https://storage.googleapis.com/obrolantetangga/alfin/obrolan/gambar/xKi_GFWvDHdE.jpg']);
+ObrolanGambar::create(['id'=>'45','gambar'=>'https://storage.googleapis.com/obrolantetangga/alfin/obrolan/gambar/SV_niWwuvKaN.jpg']);
+ObrolanGambar::create(['id'=>'46','gambar'=>'https://storage.googleapis.com/obrolantetangga/kJbM5VHRMR/obrolan/gambar/0lJPdQ8Gato4.jpg']);
+ObrolanGambar::create(['id'=>'47','gambar'=>'https://storage.googleapis.com/obrolantetangga/gKuVopHhBW/obrolan/gambar/RHonxYt_9Z3B.png']);
+ObrolanGambar::create(['id'=>'48','gambar'=>'https://storage.googleapis.com/obrolantetangga/gKuVopHhBW/obrolan/gambar/ERp9f6Ge_Thz.png']);
+ObrolanGambar::create(['id'=>'51','gambar'=>'https://storage.googleapis.com/obrolantetangga/5nbpEmr1ns/obrolan/gambar/Dxg6oMbSU1If.jpg']);
+ObrolanGambar::create(['id'=>'52','gambar'=>'https://storage.googleapis.com/obrolantetangga/zIaxNvSwMA/obrolan/gambar/dpkaDSvzNIMj.jpg']);
+ObrolanGambar::create(['id'=>'53','gambar'=>'https://storage.googleapis.com/obrolantetangga/kJbM5VHRMR/obrolan/gambar/MZkYyPAc_27D.jpg']);
+ObrolanGambar::create(['id'=>'57','gambar'=>'https://storage.googleapis.com/obrolantetangga/t3RYlo7n9C/obrolan/gambar/J6IP0E2oTQvu.jpg']);
+ObrolanGambar::create(['id'=>'60','gambar'=>'https://storage.googleapis.com/obrolantetangga/t3RYlo7n9C/obrolan/gambar/69QdOp2UHfVa.jpg']);
+ObrolanGambar::create(['id'=>'61','gambar'=>'https://storage.googleapis.com/obrolantetangga/1fiS4ZVEQb/obrolan/gambar/D6AC2zKxFQXO.jpg']);
+ObrolanGambar::create(['id'=>'62','gambar'=>'https://storage.googleapis.com/obrolantetangga/t3RYlo7n9C/obrolan/gambar/TVyx_roq7Npk.jpg']);
+ObrolanGambar::create(['id'=>'63','gambar'=>'https://storage.googleapis.com/obrolantetangga/kJbM5VHRMR/obrolan/gambar/znYoORbHhNm4.jpg']);
+ObrolanGambar::create(['id'=>'64','gambar'=>'https://storage.googleapis.com/obrolantetangga/zIaxNvSwMA/obrolan/gambar/hRvj4pg5y98B.jpg']);
+ObrolanGambar::create(['id'=>'68','gambar'=>'https://storage.googleapis.com/obrolantetangga/j5pl5LrdOp/obrolan/gambar/4xoChVzWau31.jpeg']);
+ObrolanGambar::create(['id'=>'69','gambar'=>'https://storage.googleapis.com/obrolantetangga/j5pl5LrdOp/obrolan/gambar/fE30Y6XjksVg.jpeg']);
+ObrolanGambar::create(['id'=>'75','gambar'=>'https://storage.googleapis.com/obrolantetangga/wYPg5A4rxX/obrolan/gambar/tQxbgufVPeq6.jpg']);
+ObrolanGambar::create(['id'=>'77','gambar'=>'https://storage.googleapis.com/obrolantetangga/5nbpEmr1ns/obrolan/gambar/sx7TGEiPAt48.jpg']);
+ObrolanGambar::create(['id'=>'78','gambar'=>'https://storage.googleapis.com/obrolantetangga/5nbpEmr1ns/obrolan/gambar/1mFf8NyChzTU.png']);
+ObrolanGambar::create(['id'=>'79','gambar'=>'https://storage.googleapis.com/obrolantetangga/5nbpEmr1ns/obrolan/gambar/ekhKzlyM8P_3.jpg']);
+ObrolanGambar::create(['id'=>'80','gambar'=>'https://storage.googleapis.com/obrolantetangga/5nbpEmr1ns/obrolan/gambar/cTgrP3GmMRpf.jpg']);
+ObrolanGambar::create(['id'=>'81','gambar'=>'https://storage.googleapis.com/obrolantetangga/alfin/obrolan/gambar/alfinN2jLh.png']);
+ObrolanGambar::create(['id'=>'82','gambar'=>'https://storage.googleapis.com/obrolantetangga/alfin/obrolan/gambar/alfinnBKrQ.png']);
+ObrolanGambar::create(['id'=>'83','gambar'=>'https://storage.googleapis.com/obrolantetangga/alfin/obrolan/gambar/alfin0nlTL.png']);
+ObrolanGambar::create(['id'=>'84','gambar'=>'https://storage.googleapis.com/obrolantetangga/alfin/obrolan/gambar/alfinGVmeI.png']);
+ObrolanGambar::create(['id'=>'85','gambar'=>'https://storage.googleapis.com/obrolantetangga/alfin/obrolan/gambar/alfinGpatr.png']);
+ObrolanGambar::create(['id'=>'86','gambar'=>'https://storage.googleapis.com/obrolantetangga/alfin/obrolan/gambar/alfinBxXA2.png']);
+ObrolanGambar::create(['id'=>'87','gambar'=>'https://storage.googleapis.com/obrolantetangga/5nbpEmr1ns/obrolan/gambar/SBN_RGnIv4uF.jpg']);
+ObrolanGambar::create(['id'=>'88','gambar'=>'https://storage.googleapis.com/obrolantetangga/nTSbbWc70v/obrolan/gambar/nTSbbWc70v01NNj.mp4']);
+ObrolanGambar::create(['id'=>'89','gambar'=>'https://storage.googleapis.com/obrolantetangga/nTSbbWc70v/obrolan/gambar/nTSbbWc70vskhj7.jpeg']);
+ObrolanGambar::create(['id'=>'90','gambar'=>'https://storage.googleapis.com/obrolantetangga/nTSbbWc70v/obrolan/gambar/nTSbbWc70vtNpRr.mp4']);
+ObrolanGambar::create(['id'=>'91','gambar'=>'https://storage.googleapis.com/obrolantetangga/nTSbbWc70v/obrolan/gambar/nTSbbWc70viTWaQ.jpeg']);
+ObrolanGambar::create(['id'=>'92','gambar'=>'https://storage.googleapis.com/obrolantetangga/nTSbbWc70v/obrolan/gambar/nTSbbWc70vEZ3nw.jpeg']);
+ObrolanGambar::create(['id'=>'93','gambar'=>'https://storage.googleapis.com/obrolantetangga/5nbpEmr1ns/obrolan/gambar/732mP9CXyEKB.jpg']);
+ObrolanGambar::create(['id'=>'94','gambar'=>'https://storage.googleapis.com/obrolantetangga/kJbM5VHRMR/obrolan/gambar/HoVkT1uQqNme.jpg']);
+ObrolanGambar::create(['id'=>'95','gambar'=>'https://storage.googleapis.com/obrolantetangga/nTSbbWc70v/obrolan/gambar/b4fL1i_ktxge.jpg']);
+ObrolanGambar::create(['id'=>'96','gambar'=>'https://storage.googleapis.com/obrolantetangga/nTSbbWc70v/obrolan/gambar/nTSbbWc70vsK5pz.webm']);
+ObrolanGambar::create(['id'=>'97','gambar'=>'https://storage.googleapis.com/obrolantetangga/nTSbbWc70v/obrolan/gambar/nTSbbWc70vzxemx.webm']);
+ObrolanGambar::create(['id'=>'98','gambar'=>'https://storage.googleapis.com/obrolantetangga/nTSbbWc70v/obrolan/gambar/nTSbbWc70vBFcvC.mp4']);
+ObrolanGambar::create(['id'=>'103','gambar'=>'https://storage.googleapis.com/obrolantetangga/Zd7SZmWljN/obrolan/gambar/xVhHD0Ebf4kd.jpg']);
+ObrolanGambar::create(['id'=>'104','gambar'=>'https://storage.googleapis.com/obrolantetangga/Zd7SZmWljN/obrolan/gambar/IEnsJR8vfAbe.jpg']);
+ObrolanGambar::create(['id'=>'105','gambar'=>'https://storage.googleapis.com/obrolantetangga/Zd7SZmWljN/obrolan/gambar/BIGJcy0nYCf3.jpg']);
+ObrolanGambar::create(['id'=>'106','gambar'=>'https://storage.googleapis.com/obrolantetangga/Zd7SZmWljN/obrolan/gambar/zjJL_2Md0VgD.png']);
+ObrolanGambar::create(['id'=>'107','gambar'=>'https://storage.googleapis.com/obrolantetangga/Zd7SZmWljN/obrolan/gambar/IC3Rg4TwfoKk.jpg']);
+ObrolanGambar::create(['id'=>'108','gambar'=>'https://storage.googleapis.com/obrolantetangga/zIaxNvSwMA/obrolan/gambar/i4ndrJQLIvhe.jpg']);
+ObrolanGambar::create(['id'=>'109','gambar'=>'https://storage.googleapis.com/obrolantetangga/zIaxNvSwMA/obrolan/gambar/PbL_WD84ymeJ.jpg']);
+ObrolanGambar::create(['id'=>'110','gambar'=>'https://storage.googleapis.com/obrolantetangga/zIaxNvSwMA/obrolan/gambar/cE3fY_gT1L5z.jpg']);
+ObrolanGambar::create(['id'=>'111','gambar'=>'https://storage.googleapis.com/obrolantetangga/wYPg5A4rxX/obrolan/gambar/wYPg5A4rxXFUqkH.jpeg']);
+ObrolanGambar::create(['id'=>'112','gambar'=>'https://storage.googleapis.com/obrolantetangga/wYPg5A4rxX/obrolan/gambar/jZDKd_bmQO2R.jpg']);
+ObrolanGambar::create(['id'=>'113','gambar'=>'https://storage.googleapis.com/obrolantetangga/wYPg5A4rxX/obrolan/gambar/1k9EqAQyHsXG.jpg']);
+ObrolanGambar::create(['id'=>'114','gambar'=>'https://storage.googleapis.com/obrolantetangga/5nbpEmr1ns/obrolan/gambar/5hyMuaizmxWd.jpg']);
+ObrolanGambar::create(['id'=>'115','gambar'=>'https://storage.googleapis.com/obrolantetangga/nTSbbWc70v/obrolan/gambar/nTSbbWc70v61E5C.jpeg']);
+ObrolanGambar::create(['id'=>'116','gambar'=>'https://storage.googleapis.com/obrolantetangga/5nbpEmr1ns/obrolan/gambar/alE741LP3yzn.jpg']);
+ObrolanGambar::create(['id'=>'117','gambar'=>'https://storage.googleapis.com/obrolantetangga/gKuVopHhBW/obrolan/gambar/ctl6LXSb3TZQ.jpg']);
+ObrolanGambar::create(['id'=>'118','gambar'=>'https://storage.googleapis.com/obrolantetangga/zIaxNvSwMA/obrolan/gambar/OPBdFtRxhLUi.jpg']);
+ObrolanGambar::create(['id'=>'119','gambar'=>'https://storage.googleapis.com/obrolantetangga/zIaxNvSwMA/obrolan/gambar/EDkiHw2_zcMj.jpg']);
+ObrolanGambar::create(['id'=>'120','gambar'=>'https://storage.googleapis.com/obrolantetangga/zIaxNvSwMA/obrolan/gambar/_97HmU802E1o.jpg']);
+ObrolanGambar::create(['id'=>'121','gambar'=>'https://storage.googleapis.com/obrolantetangga/Zd7SZmWljN/obrolan/gambar/uUlQ4qD8FKEo.jpg']);
+ObrolanGambar::create(['id'=>'122','gambar'=>'https://storage.googleapis.com/obrolantetangga/Zd7SZmWljN/obrolan/gambar/tvHbXLUmzkE0.jpg']);
+ObrolanGambar::create(['id'=>'123','gambar'=>'https://storage.googleapis.com/obrolantetangga/zIaxNvSwMA/obrolan/gambar/DxwAZoatFuU8.jpg']);
+ObrolanGambar::create(['id'=>'124','gambar'=>'https://storage.googleapis.com/obrolantetangga/Zd7SZmWljN/obrolan/gambar/3Q6KvPBAhIl0.jpg']);
+ObrolanGambar::create(['id'=>'125','gambar'=>'https://storage.googleapis.com/obrolantetangga/Zd7SZmWljN/obrolan/gambar/pn5PwfiEqQH1.jpg']);
+ObrolanGambar::create(['id'=>'126','gambar'=>'https://storage.googleapis.com/obrolantetangga/wYPg5A4rxX/obrolan/gambar/kiqVZd4aH1Iv.jpg']);
+ObrolanGambar::create(['id'=>'127','gambar'=>'https://storage.googleapis.com/obrolantetangga/wYPg5A4rxX/obrolan/gambar/8XvaBtPKhiFR.jpg']);
+ObrolanGambar::create(['id'=>'128','gambar'=>'https://storage.googleapis.com/obrolantetangga/zIaxNvSwMA/obrolan/gambar/whiNb1Kan_6u.jpg']);
+ObrolanGambar::create(['id'=>'129','gambar'=>'https://storage.googleapis.com/obrolantetangga/wYPg5A4rxX/obrolan/gambar/UK7fYBmqNPOx.jpg']);
+ObrolanGambar::create(['id'=>'130','gambar'=>'https://storage.googleapis.com/obrolantetangga/1fiS4ZVEQb/obrolan/gambar/1fiS4ZVEQbmXPTo.jpeg']);
+ObrolanGambar::create(['id'=>'131','gambar'=>'https://storage.googleapis.com/obrolantetangga/1fiS4ZVEQb/obrolan/gambar/1fiS4ZVEQbRVqkF.jpeg']);
+ObrolanGambar::create(['id'=>'132','gambar'=>'https://storage.googleapis.com/obrolantetangga/1fiS4ZVEQb/obrolan/gambar/1fiS4ZVEQbcGcHl.mp4']);
+ObrolanGambar::create(['id'=>'133','gambar'=>'https://storage.googleapis.com/obrolantetangga/wYPg5A4rxX/obrolan/gambar/Bae6PXgKR_SC.jpg']);
+ObrolanGambar::create(['id'=>'134','gambar'=>'https://storage.googleapis.com/obrolantetangga/wYPg5A4rxX/obrolan/gambar/wYPg5A4rxXbSkBw.jpeg']);
+ObrolanGambar::create(['id'=>'135','gambar'=>'https://storage.googleapis.com/obrolantetangga/wYPg5A4rxX/obrolan/gambar/wYPg5A4rxXWM1qM.jpeg']);
+ObrolanGambar::create(['id'=>'136','gambar'=>'https://storage.googleapis.com/obrolantetangga/wYPg5A4rxX/obrolan/gambar/wYPg5A4rxXNORNh.jpeg']);
+ObrolanGambar::create(['id'=>'137','gambar'=>'https://storage.googleapis.com/obrolantetangga/wYPg5A4rxX/obrolan/gambar/wYPg5A4rxXxwxy1.jpeg']);
+ObrolanGambar::create(['id'=>'138','gambar'=>'https://storage.googleapis.com/obrolantetangga/wYPg5A4rxX/obrolan/gambar/wYPg5A4rxXeEFLC.jpeg']);
+ObrolanGambar::create(['id'=>'139','gambar'=>'https://storage.googleapis.com/obrolantetangga/alfin/obrolan/gambar/alfin1w8vr.jpeg']);
+ObrolanGambar::create(['id'=>'140','gambar'=>'https://storage.googleapis.com/obrolantetangga/alfin/obrolan/gambar/alfinUAVKC.jpeg']);
+ObrolanGambar::create(['id'=>'141','gambar'=>'https://storage.googleapis.com/obrolantetangga/gKuVopHhBW/obrolan/gambar/gKuVopHhBWK708F.png']);
+ObrolanGambar::create(['id'=>'142','gambar'=>'https://storage.googleapis.com/obrolantetangga/nTSbbWc70v/obrolan/gambar/nTSbbWc70vsGigR.jpeg']);
+ObrolanGambar::create(['id'=>'143','gambar'=>'https://storage.googleapis.com/obrolantetangga/wYPg5A4rxX/obrolan/gambar/wYPg5A4rxXFhJdk.jpeg']);
+ObrolanGambar::create(['id'=>'144','gambar'=>'https://storage.googleapis.com/obrolantetangga/nTSbbWc70v/obrolan/gambar/nTSbbWc70vuGyp1.jpeg']);
+ObrolanGambar::create(['id'=>'145','gambar'=>'https://storage.googleapis.com/obrolantetangga/wYPg5A4rxX/obrolan/gambar/wYPg5A4rxXfQy4W.jpeg']);
+ObrolanGambar::create(['id'=>'146','gambar'=>'https://storage.googleapis.com/obrolantetangga/wYPg5A4rxX/obrolan/gambar/wYPg5A4rxXOxrys.jpeg']);
+ObrolanGambar::create(['id'=>'147','gambar'=>'https://storage.googleapis.com/obrolantetangga/alfin/obrolan/gambar/alfinigDdT.mp4']);
+ObrolanGambar::create(['id'=>'148','gambar'=>'https://storage.googleapis.com/obrolantetangga/alfin/obrolan/gambar/alfin17rUj.jpeg']);
+ObrolanGambar::create(['id'=>'149','gambar'=>'https://storage.googleapis.com/obrolantetangga/wYPg5A4rxX/obrolan/gambar/wYPg5A4rxXbAhST.jpeg']);
+ObrolanGambar::create(['id'=>'150','gambar'=>'https://storage.googleapis.com/obrolantetangga/wYPg5A4rxX/obrolan/gambar/wYPg5A4rxXNfHO4.jpeg']);
+ObrolanGambar::create(['id'=>'151','gambar'=>'https://storage.googleapis.com/obrolantetangga/wYPg5A4rxX/obrolan/gambar/wYPg5A4rxXfbeST.jpeg']);
+ObrolanGambar::create(['id'=>'152','gambar'=>'https://storage.googleapis.com/obrolantetangga/wYPg5A4rxX/obrolan/gambar/wYPg5A4rxXy8FOB.jpeg']);
+ObrolanGambar::create(['id'=>'153','gambar'=>'https://storage.googleapis.com/obrolantetangga/wYPg5A4rxX/obrolan/gambar/wYPg5A4rxXA1cqp.jpeg']);
+ObrolanGambar::create(['id'=>'155','gambar'=>'https://storage.googleapis.com/obrolantetangga/gKuVopHhBW/obrolan/gambar/gKuVopHhBWU1ulA.jpeg']);
+ObrolanGambar::create(['id'=>'156','gambar'=>'https://storage.googleapis.com/obrolantetangga/wYPg5A4rxX/obrolan/gambar/wYPg5A4rxXdjmh2.jpeg']);
+ObrolanGambar::create(['id'=>'157','gambar'=>'https://storage.googleapis.com/obrolantetangga/jkm3OLr97x/obrolan/gambar/jkm3OLr97xE1MiZ.jpeg']);
+ObrolanGambar::create(['id'=>'158','gambar'=>'https://storage.googleapis.com/obrolantetangga/nTSbbWc70v/obrolan/gambar/nTSbbWc70vGt8y5.jpeg']);
+ObrolanGambar::create(['id'=>'159','gambar'=>'https://storage.googleapis.com/obrolantetangga/nTSbbWc70v/obrolan/gambar/nTSbbWc70v8QKS3.jpeg']);
+ObrolanGambar::create(['id'=>'160','gambar'=>'https://storage.googleapis.com/obrolantetangga/nTSbbWc70v/obrolan/gambar/nTSbbWc70vgpL91.mp4']);
+ObrolanGambar::create(['id'=>'161','gambar'=>'https://storage.googleapis.com/obrolantetangga/Odzfa0mVh3/obrolan/gambar/Odzfa0mVh3aerCK.png']);
+ObrolanGambar::create(['id'=>'162','gambar'=>'https://storage.googleapis.com/obrolantetangga/Odzfa0mVh3/obrolan/gambar/Odzfa0mVh3hejOs.png']);
+
+return "sukses";
+
+
     $url = "https://storage.googleapis.com/obrolantetangga";
     $disk = Storage::disk('gcs');
      $obrolans =  Obrolan::with('user')->get();
 
-   $users =  User::get();
+   // $users =  User::get();
 
      // ->with('obrolan_gambar')->with('obrolan_video')
     // ->where('user_id',1)
 
-    foreach ($users as $user) {
+    foreach ($obrolans as $obrolan) {
       // print("{$user->unik_user}");
 
       // foreach ($obrolan->user as $user) {
 
-        if (!file_exists($disk->path("{$user->unik_user}"))) {
-          $disk->makeDirectory("{$user->unik_user}");
-        }
-
-        if (!file_exists($disk->path("{$user->unik_user}/obrolan"))) {
-          $disk->makeDirectory("{$user->unik_user}/obrolan");
-        }
-
-        if (!file_exists($disk->path("{$user->unik_user}/obrolan/gambar"))) {
-          $disk->makeDirectory("{$user->unik_user}/obrolan/gambar");
-        }
-
-        if (!file_exists($disk->path("{$user->unik_user}/obrolan/video"))) {
-          $disk->makeDirectory("{$user->unik_user}/obrolan/video");
-        }
+        // if (!file_exists($disk->path("{$user->unik_user}"))) {
+        //   $disk->makeDirectory("{$user->unik_user}");
+        // }
+        //
+        // if (!file_exists($disk->path("{$user->unik_user}/obrolan"))) {
+        //   $disk->makeDirectory("{$user->unik_user}/obrolan");
+        // }
+        //
+        // if (!file_exists($disk->path("{$user->unik_user}/obrolan/gambar"))) {
+        //   $disk->makeDirectory("{$user->unik_user}/obrolan/gambar");
+        // }
+        //
+        // if (!file_exists($disk->path("{$user->unik_user}/obrolan/video"))) {
+        //   $disk->makeDirectory("{$user->unik_user}/obrolan/video");
+        // }
 
         // print_r($gambar->gambar);
         // echo "<br>";
       // }
 
 
-      // foreach ($obrolan->obrolan_gambar as $gambar) {
-      //   // Storage::disk('gcs')->put("{$obrolan->user->unik_user}/obrolan/gambar/{$gambar->gambar}", Storage::disk('public')->get("obrolan/{$gambar->gambar}"));
-      //   print_r($gambar->gambar);
-      //   echo "<br>";
-      // }
+      foreach ($obrolan->obrolan_gambar as $gambar) {
+        Storage::disk('gcs')->put("{$obrolan->user->unik_user}/obrolan/gambar/{$gambar->gambar}", Storage::disk('public')->get("obrolan/{$gambar->gambar}"));
+        // print_r($gambar->gambar);
+        echo "ObrolanGambar::create(['id'=>'{$gambar->id}','gambar'=>'{$url}/{$obrolan->user->unik_user}/obrolan/gambar/{$gambar->gambar}']);<br>";
+      }
 
       // foreach ($obrolan->obrolan_video as $video) {
       //   Storage::disk('gcs')->put("{$obrolan->user->unik_user}/obrolan/video/{$video->video}", Storage::disk('public')->get("obrolan/{$video->video}"));
