@@ -126,11 +126,11 @@ class User extends Authenticatable implements JWTSubject
     }
 
     public function getAvatarUrlAttribute(){
-      return env('APP_URL')."/storage"."/".$this->avatar;
+      return $this->avatar;
     }
 
     public function getCoverUrlAttribute(){
-      return env('APP_URL')."/storage"."/".$this->cover;
+      return $this->cover;
     }
 
     public function getNamaPropinsiAttribute(){
