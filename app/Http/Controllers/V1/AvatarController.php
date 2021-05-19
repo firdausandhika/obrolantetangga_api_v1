@@ -96,7 +96,7 @@ class AvatarController extends V1Controller
          }
 
 
-         $imageName = "{$user->unik_user}/avatar/".auth()->user()->unik_user.Carbon::now()->format('y_s_d_m').'.'.$image_extension[1];
+         $imageName = "{$this->user->unik_user}/avatar/".auth()->user()->unik_user.Carbon::now()->format('y_s_d_m').'.'.$image_extension[1];
          // Storage::disk('public')->put($imageName, base64_decode($image));
 
            Storage::disk('gcs')->put($imageName,base64_decode($image));
