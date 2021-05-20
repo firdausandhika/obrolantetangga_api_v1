@@ -79,7 +79,7 @@ class ObrolanController extends V1Controller
         }
 
         foreach ($request->video as $key => $m) {
-          ObrolanGambar::create(['obrolan_id'=>$obrolan->id,'gambar'=>$this->base64ToFile($m)]);
+          ObrolanVideo::create(['obrolan_id'=>$obrolan->id,'video'=>$this->base64ToFile($m)]);
         }
 
 
