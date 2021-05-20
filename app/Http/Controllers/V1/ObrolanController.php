@@ -82,11 +82,6 @@ class ObrolanController extends V1Controller
           ObrolanVideo::create(['obrolan_id'=>$obrolan->id,'video'=>$this->base64ToFile($m)]);
         }
 
-
-
-
-
-
           $count_obrolan = Obrolan::whereUserId($this->user->id)->count();
           User::whereId($this->user->id)->update(["count_obrolan"=>$count_obrolan]);
 
