@@ -74,12 +74,16 @@ class ObrolanController extends V1Controller
             return $e;
           }
 
-        foreach ($request->gambar as $key => $m) {
-          ObrolanGambar::create(['obrolan_id'=>$obrolan->id,'gambar'=>$this->base64ToFile($m)]);
+        if ($request->gambar) {
+          foreach ($request->gambar as $key => $m) {
+            ObrolanGambar::create(['obrolan_id'=>$obrolan->id,'gambar'=>$this->base64ToFile($m)]);
+          }
         }
 
-        foreach ($request->video as $key => $m) {
-          ObrolanVideo::create(['obrolan_id'=>$obrolan->id,'video'=>$this->base64ToFile($m)]);
+        if ($request->video) {
+          foreach ($request->video as $key => $m) {
+            ObrolanVideo::create(['obrolan_id'=>$obrolan->id,'video'=>$this->base64ToFile($m)]);
+          }
         }
 
           $count_obrolan = Obrolan::whereUserId($this->user->id)->count();
