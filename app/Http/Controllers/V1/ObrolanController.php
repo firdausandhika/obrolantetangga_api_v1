@@ -55,6 +55,7 @@ class ObrolanController extends V1Controller
      */
     public function store(Request $request)
     {
+        $url = "https://storage.googleapis.com/obrolantetangga";
           $wilayah = $this->user->kelurahan;
           if ($request->wilayah != null) {
             $wilayah = $request->wilayah;
@@ -78,15 +79,15 @@ class ObrolanController extends V1Controller
           //
           //
           //
-          // 
+          //
           foreach ($request->gambar as $key => $m) {
-            ObrolanGambar::create(['obrolan_id'=>$obrolan->id,'gambar'=>$this->base64ToFile($m)]);
+            ObrolanGambar::create(['obrolan_id'=>$obrolan->id,'gambar'=>$url."/".$this->base64ToFile($m)]);
           }
         }
 
         if ($request->video) {
           foreach ($request->video as $key => $m) {
-            ObrolanVideo::create(['obrolan_id'=>$obrolan->id,'video'=>$this->base64ToFile($m)]);
+            ObrolanVideo::create(['obrolan_id'=>$obrolan->id,'video'=>$url."/".$this->base64ToFile($m)]);
           }
         }
 
