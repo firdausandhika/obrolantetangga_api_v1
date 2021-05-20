@@ -34,7 +34,10 @@ class ObrolanController extends V1Controller
      */
     public function index(Request $request)
     {
-      return $this->obrolan($request);
+      // return $this->obrolan($request);
+      $this->res->data =  ['obrolans'=>$request,'next_token'=>$request];
+
+      return \response()->json($this->res);
     }
 
     /**
