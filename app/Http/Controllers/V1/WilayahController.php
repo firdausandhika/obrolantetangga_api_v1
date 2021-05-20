@@ -219,21 +219,21 @@ return $dx;
 
       // foreach ($obrolan->user as $user) {
 
-        // if (!file_exists($disk->path("{$user->unik_user}"))) {
-        //   $disk->makeDirectory("{$user->unik_user}");
-        // }
-        //
-        // if (!file_exists($disk->path("{$user->unik_user}/obrolan"))) {
-        //   $disk->makeDirectory("{$user->unik_user}/obrolan");
-        // }
-        //
-        // if (!file_exists($disk->path("{$user->unik_user}/obrolan/gambar"))) {
-        //   $disk->makeDirectory("{$user->unik_user}/obrolan/gambar");
-        // }
-        //
-        // if (!file_exists($disk->path("{$user->unik_user}/obrolan/video"))) {
-        //   $disk->makeDirectory("{$user->unik_user}/obrolan/video");
-        // }
+        if (!file_exists($disk->path("{$user->unik_user}"))) {
+          $disk->makeDirectory("{$user->unik_user}");
+        }
+
+        if (!file_exists($disk->path("{$user->unik_user}/obrolan"))) {
+          $disk->makeDirectory("{$user->unik_user}/obrolan");
+        }
+
+        if (!file_exists($disk->path("{$user->unik_user}/obrolan/gambar"))) {
+          $disk->makeDirectory("{$user->unik_user}/obrolan/gambar");
+        }
+
+        if (!file_exists($disk->path("{$user->unik_user}/obrolan/video"))) {
+          $disk->makeDirectory("{$user->unik_user}/obrolan/video");
+        }
 
         // print_r($gambar->gambar);
         // echo "<br>";
