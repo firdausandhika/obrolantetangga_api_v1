@@ -57,7 +57,7 @@ class TetanggaController extends V1Controller
 
 
       $this->res->msg   = "Success";
-      $this->res->data   = ["tetanggas"=>'1',"jumlah_tetangga"=>'2'];
+      $this->res->data   = ["tetanggas"=>"1","jumlah_tetangga"=>"2"];
       return \response()->json($this->res);
     }
 
