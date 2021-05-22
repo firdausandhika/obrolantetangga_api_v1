@@ -146,7 +146,7 @@ class AuthController extends V1Controller
 
     public function send_sms_link_reset($password_reset,$users)
     {
-        // print_r("masuk sini");
+        print_r("masuk sini");exit;
         $number = $users->nomor;
         $rtrim = $number - rtrim('0');
         // $users = User::wherePhone($rtrim)->first();
@@ -186,7 +186,7 @@ class AuthController extends V1Controller
         ));
         $result_curl  = curl_exec($ch);
         curl_close($ch);
-        
+
 
       // // KIRIM SMS
       //   // setting
