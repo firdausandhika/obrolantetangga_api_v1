@@ -43,8 +43,8 @@ class TrendingController extends V1Controller
 
      $user = auth()->user();
      // return Str::substr($user->kota,0,5);
-     $kategoris = Kategori::where('jenis_id', 1)->orderBy('nama', 'ASC')->get();
-     $tetanggas = User::where('id','!=',$user->id)->whereKota($user->kota)->limit(8)->orderBy('id','desc')->get();
+      $kategoris = Kategori::where('jenis_id', 1)->orderBy('nama', 'ASC')->get();
+     // $tetanggas = User::where('id','!=',$user->id)->whereKota($user->kota)->limit(8)->orderBy('id','desc')->get();
 
      // $obrolans = Obrolan::filter($request)
      //          ->orderBy('poin','desc')
@@ -90,7 +90,7 @@ class TrendingController extends V1Controller
              ->with('obrolan_like')
              ->with('obrolan_dislike')
              ->with('user')
-             ->paginate(10);
+             ->paginate(3);
 
      Obrolan::whereRaw('LEFT(wilayah,5)=LEFT(current_wilayah_user,5)')
                ->whereRaw('LEFT(wilayah,5)="'.$user->kota.'"')
@@ -110,7 +110,7 @@ class TrendingController extends V1Controller
        $items->append('media');
        });
 
-       return $obrolans;
+       // return $obrolans;
       $this->res->data = ['obrolans'=>$obrolans];
       return \response()->json($this->res);
      // $data = compact('user', 'obrolans', 'kategoris','tetanggas');
