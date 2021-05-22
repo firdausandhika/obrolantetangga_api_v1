@@ -110,7 +110,7 @@ class TrendingController extends V1Controller
        $items->append('media');
        });
 
-      $this->res->data = ['obrolans'=>$obrolans];
+      $this->res->data = ['obrolans'=>1];
       return \response()->json($this->res);
      // $data = compact('user', 'obrolans', 'kategoris','tetanggas');
      // return view('frontend.trending', $data);
