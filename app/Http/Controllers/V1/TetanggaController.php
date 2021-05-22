@@ -26,38 +26,33 @@ class TetanggaController extends V1Controller
      */
     public function index(Request $request)
     {
-      // $query1   = User::query()->where('id','!=',$this->user->id);
-      // $query    = User::query()->where('id','!=',$this->user->id)->orderBy('id','desc');
-      // $query->whereActive(1);
-      // $query->whereNotNull('avatar');
-      //
-      // $query1->whereActive(1);
-      // $query1->whereNotNull('avatar');
-      // $kota  = $this->user->_kota->nama;
-      //
-      // if ($request->kota) {
-      //   $query->whereKota($request->kota);
-      //   $query1->whereKota($request->kota);
-      //   $q_kota = Wilayah::whereKode($request->kota)->first();
-      //
-      //   if ($q_kota) {
-      //     $kota = $q_kota->nama;
-      //   }
-      //
-      // }else{
-      //   $query->whereKota($this->user->kota);
-      //   $query1->whereKota($this->user->kota);
-      // }
-      // $tetanggas = $query->paginate(20);
-      // $n_tetangga = $query->count();
-      //
-      // $this->res->msg   = "Success";
-      // $this->res->data   = ["tetanggas"=>$tetanggas,"jumlah_tetangga"=>$n_tetangga];
-      // return \response()->json($this->res);
+      $query1   = User::query()->where('id','!=',$this->user->id);
+      $query    = User::query()->where('id','!=',$this->user->id)->orderBy('id','desc');
+      $query->whereActive(1);
+      $query->whereNotNull('avatar');
 
+      $query1->whereActive(1);
+      $query1->whereNotNull('avatar');
+      $kota  = $this->user->_kota->nama;
+
+      if ($request->kota) {
+        $query->whereKota($request->kota);
+        $query1->whereKota($request->kota);
+        $q_kota = Wilayah::whereKode($request->kota)->first();
+
+        if ($q_kota) {
+          $kota = $q_kota->nama;
+        }
+
+      }else{
+        $query->whereKota($this->user->kota);
+        $query1->whereKota($this->user->kota);
+      }
+      $tetanggas = $query->paginate(20);
+      $n_tetangga = $query->count();
 
       $this->res->msg   = "Success";
-      $this->res->data   = ["tetanggas"=>"1","jumlah_tetangga"=>"2"];
+      $this->res->data   = ["tetanggas"=>$tetanggas,"jumlah_tetangga"=>$n_tetangga];
       return \response()->json($this->res);
     }
 
