@@ -146,7 +146,7 @@ class AuthController extends V1Controller
 
     public function send_sms_link_reset($password_reset,$users)
     {
-        print_r("masuk sini");exit;
+        print_r([env('KEY_WA_DEMO'),env('URL_WA'),env('AUTH_WA_KEY')]);exit;
         $number = $users->nomor;
         $rtrim = $number - rtrim('0');
         // $users = User::wherePhone($rtrim)->first();
