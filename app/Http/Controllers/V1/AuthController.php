@@ -117,7 +117,7 @@ class AuthController extends V1Controller
 
   public function forgot(Request $request)
     {
-      return phpinfo();
+      // return phpinfo();
 
 
       if ($request->phone[0] == '0') {
@@ -139,7 +139,7 @@ class AuthController extends V1Controller
       ]);
 
 
-      $this->send_sms_link_reset($password_reset,$user);
+      // $this->send_sms_link_reset($password_reset,$user);
 
 
       return response()->json(['success'=>true, 'request'=>$request->except('_token'),'msg' =>'SMS Telah Dikirim','user'=>$user],201);
