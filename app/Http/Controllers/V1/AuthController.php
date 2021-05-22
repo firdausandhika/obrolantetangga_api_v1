@@ -117,7 +117,7 @@ class AuthController extends V1Controller
 
   public function forgot(Request $request)
     {
-      $faker = \Faker\Factory::create('id_ID');
+
 
       if ($request->phone[0] == '0') {
         $request->merge(['phone' => substr($request->phone, 1)]);
@@ -134,7 +134,7 @@ class AuthController extends V1Controller
 
       $password_reset = PasswordReset::create([
         'unik_user'=>$user->unik_user,
-        'token'=> str_replace('-', '', $faker->uuid)
+        'token'=> str_replace('-', '', $this->makeUuid())
       ]);
 
 
@@ -146,16 +146,16 @@ class AuthController extends V1Controller
 
     public function send_sms_link_reset($password_reset,$users)
     {
-
+        // print_r("masuk sini");
         $number = $users->nomor;
         $rtrim = $number - rtrim('0');
         // $users = User::wherePhone($rtrim)->first();
         // dd($users);
-        $faker = \Faker\Factory::create('id_ID');
+
         // $user =  User::wherePhone($users)->first();
         $password_reset = PasswordReset::create([
             'unik_user' => $users->unik_user,
-            'token' => str_replace('-', '', $faker->uuid)
+            'token' => str_replace('-', '', $this->makeUuid())
         ]);
         // dd($user);
         $message = "Ini adalah Link rahasia untuk mereset password akun ObrolanTetangga anda https://obrolantetanngga.com/" . "reset_password" . "/" . $password_reset->token . ". Silahkan klik atau buka Link tersebut pada browser anda. Jangan sebarkan kepada siapapun bahkan kepada pihak ObrolanTetangga sekalipun. Hati-hati penipuan!";
@@ -184,8 +184,9 @@ class AuthController extends V1Controller
             'Content-Length: ' . strlen($data_string),
             'Authorization: Basic '.env('AUTH_WA_KEY')
         ));
-        curl_exec($ch);
+        $result_curl  = curl_exec($ch);
         curl_close($ch);
+        
 
       // // KIRIM SMS
       //   // setting
@@ -364,7 +365,7 @@ class AuthController extends V1Controller
 
     public function create_new_phone_number(Request $request)
     {
-      $faker = \Faker\Factory::create('id_ID');
+
       $user = [
         'phone'=>str_replace('(+62)','',str_replace(' ','',$faker->phoneNumber)),
         'name'=>'testing '.$faker->name,
@@ -389,5 +390,28 @@ class AuthController extends V1Controller
       }
 
       return response()->json(['success'=>true, 'data'=>['otp'=>$otp],'request'=>$request->except('_token'), 'msg' =>'success'],200);
+    }
+
+    public function makeUuid()
+    {
+      return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+        // 32 bits for "time_low"
+        mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
+
+        // 16 bits for "time_mid"
+        mt_rand( 0, 0xffff ),
+
+        // 16 bits for "time_hi_and_version",
+        // four most significant bits holds version number 4
+        mt_rand( 0, 0x0fff ) | 0x4000,
+
+        // 16 bits, 8 bits for "clk_seq_hi_res",
+        // 8 bits for "clk_seq_low",
+        // two most significant bits holds zero and one for variant DCE1.1
+        mt_rand( 0, 0x3fff ) | 0x8000,
+
+        // 48 bits for "node"
+        mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
+    );
     }
 }
