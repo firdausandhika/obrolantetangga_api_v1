@@ -50,6 +50,7 @@ class TetanggaController extends V1Controller
       }
       $tetanggas = $query->paginate(5);
       $n_tetangga = $query->count();
+      // return [$tetanggas,$n_tetangga];
 
       $this->res->msg   = "Success";
       $this->res->data   = ["tetanggas"=>$tetanggas,"jumlah_tetangga"=>$n_tetangga];
