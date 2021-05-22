@@ -52,7 +52,7 @@ class TetanggaController extends V1Controller
       $n_tetangga = $query->count();
 
       $this->res->msg   = "Success";
-      $this->res->data   = ["tetanggas"=>$tetanggas,"jumlah_tetangga"=>$n_tetangga];
+      $this->res->data   = ["tetanggas"=>"1","jumlah_tetangga"=>"1"];
       return \response()->json($this->res);
     }
 
