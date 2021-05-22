@@ -117,6 +117,7 @@ class AuthController extends V1Controller
 
   public function forgot(Request $request)
     {
+      return phpinfo();
 
 
       if ($request->phone[0] == '0') {
