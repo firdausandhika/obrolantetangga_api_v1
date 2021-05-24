@@ -110,7 +110,7 @@ class ObrolanController extends V1Controller
                     if($extension =='mp4'){
                       ObrolanVideo::create([
                         'obrolan_id' => $obrolan->id,
-                        'video' => $url."/".$base_folder_video."/".$name_file,
+                        'video' => $url."/".$base_folder_gambar."/".$name_file,
                       ]);
                     }else{
                       ObrolanGambar::create([
