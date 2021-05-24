@@ -85,25 +85,25 @@ class ObrolanController extends V1Controller
           $base_folder_gambar = "{$base_auth}/obrolan/gambar";
           $base_folder_video = "{$base_auth}/obrolan/video";
 
-          if (!file_exists($disk->path("{$base_auth}"))) {
-              $disk->makeDirectory("{$base_auth}");
-            }
-
-          if (!file_exists($disk->path("{$base_folder}"))) {
-              $disk->makeDirectory("{$base_folder}");
-            }
-
-            if (!file_exists($disk->path("{$base_folder_gambar}"))) {
-                $disk->makeDirectory("{$base_folder_gambar}");
-              }
+          // if (!file_exists($disk->path("{$base_auth}"))) {
+          //     $disk->makeDirectory("{$base_auth}");
+          //   }
+          //
+          // if (!file_exists($disk->path("{$base_folder}"))) {
+          //     $disk->makeDirectory("{$base_folder}");
+          //   }
+          //
+          //   if (!file_exists($disk->path("{$base_folder_gambar}"))) {
+          //       $disk->makeDirectory("{$base_folder_gambar}");
+          //     }
 
 
 
           if ($files = $request->file('gambar')) {
 
-            if (!file_exists($disk->path("{$base_folder_gambar}"))) {
-                $disk->makeDirectory("{$base_folder_gambar}");
-              }
+            // if (!file_exists($disk->path("{$base_folder_gambar}"))) {
+            //     $disk->makeDirectory("{$base_folder_gambar}");
+            //   }
 
               foreach ($files as $file) {
                 try {
@@ -124,29 +124,29 @@ class ObrolanController extends V1Controller
               }
 
 
-              if ($files = $request->file('video')) {
-
-                if (!file_exists($disk->path("{$base_folder_video}"))) {
-                    $disk->makeDirectory("{$base_folder_video}");
-                  }
-
-                  foreach ($files as $file) {
-                    try {
-                        $extension = $file->extension();
-                        $name_file = $base_folder_video."/".$this->user->unik_user . Str::random(5) . '.' . $extension;
-                        // Storage::putFileAs('public/obrolan', $file, $name_file);
-                        Storage::disk('gcs')->put($base64Name, json_encode($this->res));
-
-
-                        ObrolanVideo::create([
-                          'obrolan_id' => $obrolan->id,
-                          'video' => $url."/".$name_file,
-                        ]);
-                      } catch (\Exception $e) {
-                        return $e;
-                      }
-                    }
-                  }
+              // if ($files = $request->file('video')) {
+              //
+              //   if (!file_exists($disk->path("{$base_folder_video}"))) {
+              //       $disk->makeDirectory("{$base_folder_video}");
+              //     }
+              //
+              //     foreach ($files as $file) {
+              //       try {
+              //           $extension = $file->extension();
+              //           $name_file = $base_folder_video."/".$this->user->unik_user . Str::random(5) . '.' . $extension;
+              //           // Storage::putFileAs('public/obrolan', $file, $name_file);
+              //           Storage::disk('gcs')->put($base64Name, json_encode($this->res));
+              //
+              //
+              //           ObrolanVideo::create([
+              //             'obrolan_id' => $obrolan->id,
+              //             'video' => $url."/".$name_file,
+              //           ]);
+              //         } catch (\Exception $e) {
+              //           return $e;
+              //         }
+              //       }
+              //     }
 
 
           $count_obrolan = Obrolan::whereUserId($this->user->id)->count();
