@@ -87,8 +87,8 @@ class ObrolanController extends V1Controller
           //
           //
           foreach ($request->gambar as $key => $m) {
-            ObrolanGambar::create(['obrolan_id'=>$obrolan->id,'gambar'=>$m]);
-            // ObrolanGambar::create(['obrolan_id'=>$obrolan->id,'gambar'=>$url."/".$this->base64ToFile($m)]);
+            // ObrolanGambar::create(['obrolan_id'=>$obrolan->id,'gambar'=>$m]);
+            ObrolanGambar::create(['obrolan_id'=>$obrolan->id,'gambar'=>$url."/".$this->base64ToFile($m)]);
           }
         }
 
