@@ -107,11 +107,20 @@ class ObrolanController extends V1Controller
                     Storage::disk('gcs')->putFileAs($base_folder_gambar, $file, $name_file);
                     // Storage::disk('gcs')->put($name_file, $file);
 
+                    if($extension =='mp4'){
+                      ObrolanVideo::create([
+                        'obrolan_id' => $obrolan->id,
+                        'video' => $url."/".$base_folder_video."/".$name_file,
+                      ]);
+                    }else{
+                      ObrolanGambar::create([
+                        'obrolan_id' => $obrolan->id,
+                        'gambar' => $url."/".$base_folder_gambar."/".$name_file,
+                      ]);
+                    }
 
-                    ObrolanGambar::create([
-                      'obrolan_id' => $obrolan->id,
-                      'gambar' => $url."/".$base_folder_gambar."/".$name_file,
-                    ]);
+
+
                   } catch (\Exception $e) {
                     return $e;
                   }
