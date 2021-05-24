@@ -92,10 +92,10 @@ class TrendingController extends V1Controller
              ->with('user')
              ->paginate(3);
 
-     Obrolan::whereRaw('LEFT(wilayah,5)=LEFT(current_wilayah_user,5)')
-               ->whereRaw('LEFT(wilayah,5)="'.$user->kota.'"')
-               ->whereNotIn('id',$obrolans->pluck('id')->toArray())
-               ->update(['rank'=>null]);
+     // Obrolan::whereRaw('LEFT(wilayah,5)=LEFT(current_wilayah_user,5)')
+     //           ->whereRaw('LEFT(wilayah,5)="'.$user->kota.'"')
+     //           ->whereNotIn('id',$obrolans->pluck('id')->toArray())
+     //           ->update(['rank'=>null]);
 
        $this->view($obrolans,$user);
        $obrolans->each(function ($items) {
