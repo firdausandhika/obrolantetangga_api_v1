@@ -79,24 +79,42 @@ class ObrolanController extends V1Controller
             return $e;
           }
 
-        if ($request->gambar) {
-          //
-          //
-          //
-          //
-          //
-          //
-          foreach ($request->gambar as $key => $m) {
-            // ObrolanGambar::create(['obrolan_id'=>$obrolan->id,'gambar'=>$m]);
-            ObrolanGambar::create(['obrolan_id'=>$obrolan->id,'gambar'=>$url."/".$this->base64ToFile($m)]);
-          }
-        }
 
-        if ($request->video) {
-          foreach ($request->video as $key => $m) {
-            ObrolanVideo::create(['obrolan_id'=>$obrolan->id,'video'=>$url."/".$this->base64ToFile($m)]);
-          }
-        }
+          $disk = Storage::disk('gcs');
+          $base_auth = auth()->user()->unik_user;
+          $base_folder = "{$base_auth}/obrolan";
+
+          if (!file_exists($disk->path("{$base_auth}"))) {
+              $disk->makeDirectory("{$base_auth}");
+            }
+
+          if (!file_exists($disk->path("{$base_folder}"))) {
+              $disk->makeDirectory("{$base_folder}");
+            }
+
+            $base64Name = "{$base_folder}/".auth()->user()->unik_user.Carbon::now()->format('y_s_d_m');
+            Storage::disk('gcs')->put($base64Name."testing_1.txt", json_encode($this->res->request));
+
+
+
+        // if ($request->gambar) {
+        //   //
+        //   //
+        //   //
+        //   //
+        //   //
+        //   //
+        //   foreach ($request->gambar as $key => $m) {
+        //     // ObrolanGambar::create(['obrolan_id'=>$obrolan->id,'gambar'=>$m]);
+        //     ObrolanGambar::create(['obrolan_id'=>$obrolan->id,'gambar'=>$url."/".$this->base64ToFile($m)]);
+        //   }
+        // }
+        //
+        // if ($request->video) {
+        //   foreach ($request->video as $key => $m) {
+        //     ObrolanVideo::create(['obrolan_id'=>$obrolan->id,'video'=>$url."/".$this->base64ToFile($m)]);
+        //   }
+        // }
 
           $count_obrolan = Obrolan::whereUserId($this->user->id)->count();
           User::whereId($this->user->id)->update(["count_obrolan"=>$count_obrolan]);
