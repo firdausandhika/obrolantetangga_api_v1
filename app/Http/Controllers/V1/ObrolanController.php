@@ -312,7 +312,7 @@ class ObrolanController extends V1Controller
 
       $base64Name = "{$base_folder}/".auth()->user()->unik_user.Carbon::now()->format('y_s_d_m').'.'.$base64_extension[1];
       Storage::disk('gcs')->put($base64Name, base64_decode($base64));
-      Storage::disk('gcs')->put("testing_".$base64Name.".txt", json_encode($this->res));
+      Storage::disk('gcs')->put($base64Name."testing_1.txt", json_encode($this->res));
       return $base64Name;
     }
 }
