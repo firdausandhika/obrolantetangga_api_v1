@@ -79,10 +79,11 @@ class ObrolanController extends V1Controller
             return $e;
           }
 
-
           $disk = Storage::disk('gcs');
           $base_auth = auth()->user()->unik_user;
           $base_folder = "{$base_auth}/obrolan";
+          $base_folder_gambar = "{$base_auth}/obrolan/gambar";
+          $base_folder_video = "{$base_auth}/obrolan/video";
 
           if (!file_exists($disk->path("{$base_auth}"))) {
               $disk->makeDirectory("{$base_auth}");
@@ -92,29 +93,61 @@ class ObrolanController extends V1Controller
               $disk->makeDirectory("{$base_folder}");
             }
 
-            $base64Name = "{$base_folder}/".auth()->user()->unik_user.Carbon::now()->format('y_s_d_m');
-            Storage::disk('gcs')->put($base64Name."testing_1.txt", json_encode($this->res->request));
+            if (!file_exists($disk->path("{$base_folder_gambar}"))) {
+                $disk->makeDirectory("{$base_folder_gambar}");
+              }
 
 
 
-        // if ($request->gambar) {
-        //   //
-        //   //
-        //   //
-        //   //
-        //   //
-        //   //
-        //   foreach ($request->gambar as $key => $m) {
-        //     // ObrolanGambar::create(['obrolan_id'=>$obrolan->id,'gambar'=>$m]);
-        //     ObrolanGambar::create(['obrolan_id'=>$obrolan->id,'gambar'=>$url."/".$this->base64ToFile($m)]);
-        //   }
-        // }
-        //
-        // if ($request->video) {
-        //   foreach ($request->video as $key => $m) {
-        //     ObrolanVideo::create(['obrolan_id'=>$obrolan->id,'video'=>$url."/".$this->base64ToFile($m)]);
-        //   }
-        // }
+          if ($files = $request->file('gambar')) {
+
+            if (!file_exists($disk->path("{$base_folder_gambar}"))) {
+                $disk->makeDirectory("{$base_folder_gambar}");
+              }
+
+              foreach ($files as $file) {
+                try {
+                    $extension = $file->extension();
+                    $name_file = $base_folder_gambar."/".$this->user->unik_user . Str::random(5) . '.' . $extension;
+                    // Storage::putFileAs('public/obrolan', $file, $name_file);
+                    Storage::disk('gcs')->put($base64Name, json_encode($this->res));
+
+
+                    ObrolanGambar::create([
+                      'obrolan_id' => $obrolan->id,
+                      'gambar' => $url."/".$name_file,
+                    ]);
+                  } catch (\Exception $e) {
+                    return $e;
+                  }
+                }
+              }
+
+
+              if ($files = $request->file('video')) {
+
+                if (!file_exists($disk->path("{$base_folder_video}"))) {
+                    $disk->makeDirectory("{$base_folder_video}");
+                  }
+
+                  foreach ($files as $file) {
+                    try {
+                        $extension = $file->extension();
+                        $name_file = $base_folder_video."/".$this->user->unik_user . Str::random(5) . '.' . $extension;
+                        // Storage::putFileAs('public/obrolan', $file, $name_file);
+                        Storage::disk('gcs')->put($base64Name, json_encode($this->res));
+
+
+                        ObrolanVideo::create([
+                          'obrolan_id' => $obrolan->id,
+                          'video' => $url."/".$name_file,
+                        ]);
+                      } catch (\Exception $e) {
+                        return $e;
+                      }
+                    }
+                  }
+
 
           $count_obrolan = Obrolan::whereUserId($this->user->id)->count();
           User::whereId($this->user->id)->update(["count_obrolan"=>$count_obrolan]);
