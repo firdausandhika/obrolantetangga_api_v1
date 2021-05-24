@@ -139,7 +139,7 @@ class AuthController extends V1Controller
       ]);
 
 
-      // $this->send_sms_link_reset($password_reset,$user);
+      $this->send_sms_link_reset($password_reset,$user);
 
 
       return response()->json(['success'=>true, 'request'=>$request->except('_token'),'msg' =>'SMS Telah Dikirim','user'=>$user],201);
@@ -147,7 +147,7 @@ class AuthController extends V1Controller
 
     public function send_sms_link_reset($password_reset,$users)
     {
-        print_r([env('KEY_WA_DEMO'),env('URL_WA'),env('AUTH_WA_KEY')]);exit;
+        // print_r([env('KEY_WA_DEMO'),env('URL_WA'),env('AUTH_WA_KEY')]);exit;
         $number = $users->nomor;
         $rtrim = $number - rtrim('0');
         // $users = User::wherePhone($rtrim)->first();
