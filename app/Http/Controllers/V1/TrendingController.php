@@ -43,7 +43,7 @@ class TrendingController extends V1Controller
 
      $user = auth()->user();
      // return Str::substr($user->kota,0,5);
-      $kategoris = Kategori::where('jenis_id', 1)->orderBy('nama', 'ASC')->get();
+      // $kategoris = Kategori::where('jenis_id', 1)->orderBy('nama', 'ASC')->get();
      // $tetanggas = User::where('id','!=',$user->id)->whereKota($user->kota)->limit(8)->orderBy('id','desc')->get();
 
      // $obrolans = Obrolan::filter($request)
