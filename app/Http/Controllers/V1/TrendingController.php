@@ -68,7 +68,7 @@ class TrendingController extends V1Controller
      //          ->limit(1)
      //          ->get();
 
-     $obrolans = Obrolan::filter($request)
+     return $obrolans = Obrolan::filter($request)
              ->orderBy('poin','desc')
              ->whereRaw('LEFT(wilayah,5)=LEFT(current_wilayah_user,5)')
              ->whereRaw('LEFT(wilayah,5)="'.$user->kota.'"')
@@ -77,20 +77,21 @@ class TrendingController extends V1Controller
              // ->orWhere("obrolans.wilayah", "")
              ->with('kategori')
              ->with('obrolan_gambar')
-             ->with(['obrolan_komentar' => function ($query) {
-                 $query->whereNull('parent_id');
-                 $query->orderBy('id','asc');
-                 $query->with('user');
-                 $query->with(['sub_komen' => function ($sub_query) {
-                     // $sub_query->limit(1);
-                     $sub_query->orderBy('id','asc');
-                     $sub_query->with('user');
-                 }]);
-             }])
+             // ->with(['obrolan_komentar' => function ($query) {
+             //     $query->whereNull('parent_id');
+             //     $query->orderBy('id','asc');
+             //     $query->with('user');
+             //     $query->with(['sub_komen' => function ($sub_query) {
+             //         // $sub_query->limit(1);
+             //         $sub_query->orderBy('id','asc');
+             //         $sub_query->with('user');
+             //     }]);
+             // }])
              ->with('obrolan_like')
              ->with('obrolan_dislike')
              ->with('user')
-             ->paginate(3);
+             ->limit(3)
+             ->get();
 
      // Obrolan::whereRaw('LEFT(wilayah,5)=LEFT(current_wilayah_user,5)')
      //           ->whereRaw('LEFT(wilayah,5)="'.$user->kota.'"')
