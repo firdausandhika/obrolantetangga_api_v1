@@ -110,7 +110,7 @@ class ObrolanController extends V1Controller
 
                     ObrolanGambar::create([
                       'obrolan_id' => $obrolan->id,
-                      'gambar' => $url."/".$name_file,
+                      'gambar' => $url."/".$base_folder_gambar."/".$name_file,
                     ]);
                   } catch (\Exception $e) {
                     return $e;
@@ -129,7 +129,7 @@ class ObrolanController extends V1Controller
 
                         ObrolanVideo::create([
                           'obrolan_id' => $obrolan->id,
-                          'video' => $url."/".$name_file,
+                          'video' => $url."/".$base_folder_video."/".$name_file,
                         ]);
                       } catch (\Exception $e) {
                         return $e;
