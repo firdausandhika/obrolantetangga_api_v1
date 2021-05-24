@@ -13,7 +13,7 @@ class ObrolanVideo extends Model
     protected $appends = ['video_url','type'];
 
     public function getVideoUrlAttribute(){
-      return env('APP_URL')."/storage/obrolan"."/".$this->video;
+      return $this->video;
     }
 
     public function getTypeAttribute(){

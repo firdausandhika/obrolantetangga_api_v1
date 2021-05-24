@@ -13,7 +13,7 @@ class ObrolanGambar extends Model
     protected $appends = ['image_url','type'];
 
     public function getImageUrlAttribute(){
-      return env('APP_URL')."/storage/obrolan"."/".$this->gambar;
+      return $this->gambar;
     }
 
     public function getTypeAttribute(){
