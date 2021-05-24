@@ -194,7 +194,7 @@ class AuthController extends V1Controller
         //
         //
         // print_r($result_curl);exit;
-        print_r("sampai sini fin 123");exit;
+        print_r(["sampai sini fin 123",$result_curl]);exit;
 
 
       // // KIRIM SMS
