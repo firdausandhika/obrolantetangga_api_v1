@@ -100,17 +100,12 @@ class ObrolanController extends V1Controller
 
 
           if ($files = $request->file('gambar')) {
-
-            // if (!file_exists($disk->path("{$base_folder_gambar}"))) {
-            //     $disk->makeDirectory("{$base_folder_gambar}");
-            //   }
-
               foreach ($files as $file) {
                 try {
                     $extension = $file->extension();
-                    $name_file = $base_folder_gambar."/".$this->user->unik_user . Str::random(5) . '.' . $extension;
-                    // Storage::putFileAs('public/obrolan', $file, $name_file);
-                    Storage::disk('gcs')->put($base64Name, json_encode($this->res));
+                    $name_file = $this->user->unik_user . Str::random(5)."_".Carbon::now()->format('y_s_d_m'). '.' . $extension;
+                    Storage::disk('gcs')->putFileAs($base_folder_gambar, $file, $name_file);
+                    // Storage::disk('gcs')->put($name_file, $file);
 
 
                     ObrolanGambar::create([
@@ -122,6 +117,25 @@ class ObrolanController extends V1Controller
                   }
                 }
               }
+
+              if ($files = $request->file('video')) {
+                  foreach ($files as $file) {
+                    try {
+                        $extension = $file->extension();
+                        $name_file = $this->user->unik_user . Str::random(5)."_".Carbon::now()->format('y_s_d_m'). '.' . $extension;
+                        Storage::disk('gcs')->putFileAs($base_folder_video, $file, $name_file);
+                        // Storage::disk('gcs')->put($name_file, $file);
+
+
+                        ObrolanVideo::create([
+                          'obrolan_id' => $obrolan->id,
+                          'video' => $url."/".$name_file,
+                        ]);
+                      } catch (\Exception $e) {
+                        return $e;
+                      }
+                    }
+                  }
 
 
               // if ($files = $request->file('video')) {
