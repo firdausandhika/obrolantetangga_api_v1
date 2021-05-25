@@ -98,7 +98,7 @@ class TrendingController extends V1Controller
      //           ->whereNotIn('id',$obrolans->pluck('id')->toArray())
      //           ->update(['rank'=>null]);
 
-       $this->view($obrolans,$user);
+       // $this->view($obrolans,$user);
        $obrolans->each(function ($items) {
        $items->append('provinsi_data');
        $items->append('kota_data');
