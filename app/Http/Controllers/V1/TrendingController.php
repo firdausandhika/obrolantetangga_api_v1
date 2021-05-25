@@ -100,15 +100,15 @@ class TrendingController extends V1Controller
 
        // $this->view($obrolans,$user);
        $obrolans->each(function ($items) {
-       $items->append('provinsi_data');
-       $items->append('kota_data');
-       $items->append('kecamatan_data');
-       $items->append('kelurahan_data');
-       $items->append('total_view');
-       $items->append('current_user');
-       $items->append('is_like');
-       $items->append('is_dislike');
-       $items->append('media');
+       // $items->append('provinsi_data');
+       // $items->append('kota_data');
+       // $items->append('kecamatan_data');
+       // $items->append('kelurahan_data');
+       // $items->append('total_view');
+       // $items->append('current_user');
+       // $items->append('is_like');
+       // $items->append('is_dislike');
+       // $items->append('media');
        });
 
        // return $obrolans;
