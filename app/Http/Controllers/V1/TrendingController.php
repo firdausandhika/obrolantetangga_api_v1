@@ -75,21 +75,21 @@ class TrendingController extends V1Controller
              ->where('poin', '>', 0)
              // ->where("obrolans.wilayah", "like", Str::substr($user->kota,0,5))
              // ->orWhere("obrolans.wilayah", "")
-             ->with('kategori')
-             ->with('obrolan_gambar')
-             ->with(['obrolan_komentar' => function ($query) {
-                 $query->whereNull('parent_id');
-                 $query->orderBy('id','asc');
-                 $query->with('user');
-                 $query->with(['sub_komen' => function ($sub_query) {
-                     // $sub_query->limit(1);
-                     $sub_query->orderBy('id','asc');
-                     $sub_query->with('user');
-                 }]);
-             }])
-             ->with('obrolan_like')
-             ->with('obrolan_dislike')
-             ->with('user')
+             // ->with('kategori')
+             // ->with('obrolan_gambar')
+             // ->with(['obrolan_komentar' => function ($query) {
+             //     $query->whereNull('parent_id');
+             //     $query->orderBy('id','asc');
+             //     $query->with('user');
+             //     $query->with(['sub_komen' => function ($sub_query) {
+             //         // $sub_query->limit(1);
+             //         $sub_query->orderBy('id','asc');
+             //         $sub_query->with('user');
+             //     }]);
+             // }])
+             // ->with('obrolan_like')
+             // ->with('obrolan_dislike')
+             // ->with('user')
              ->limit(3)
              ->get();
 
@@ -99,7 +99,7 @@ class TrendingController extends V1Controller
      //           ->update(['rank'=>null]);
 
        // $this->view($obrolans,$user);
-       $obrolans->each(function ($items) {
+       // $obrolans->each(function ($items) {
        // $items->append('provinsi_data');
        // $items->append('kota_data');
        // $items->append('kecamatan_data');
@@ -109,7 +109,7 @@ class TrendingController extends V1Controller
        // $items->append('is_like');
        // $items->append('is_dislike');
        // $items->append('media');
-       });
+       // });
 
        // return $obrolans;
       $this->res->data = ['obrolans'=>$obrolans];
