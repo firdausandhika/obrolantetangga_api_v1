@@ -29,9 +29,9 @@ class TrendingController extends V1Controller
         $this->middleware('jwt.verify');
         $this->user = $this->user();
         $this->res  = $this->res();
-        $this->res->request = $request->except('_token');
-        $this->res->ip = $request->ip();
-        $this->res->user_agen = $request->header('User-Agent');
+        // $this->res->request = $request->except('_token');
+        // $this->res->ip = $request->ip();
+        // $this->res->user_agen = $request->header('User-Agent');
     }
     /**
      * Display a listing of the resource.
@@ -68,7 +68,7 @@ class TrendingController extends V1Controller
      //          ->limit(1)
      //          ->get();
 
-     return $obrolans = Obrolan::filter($request)
+      $obrolans = Obrolan::filter($request)
              ->orderBy('poin','desc')
              ->whereRaw('LEFT(wilayah,5)=LEFT(current_wilayah_user,5)')
              ->whereRaw('LEFT(wilayah,5)="'.$user->kota.'"')
