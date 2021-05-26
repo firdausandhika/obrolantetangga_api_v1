@@ -185,6 +185,8 @@ class AuthController extends V1Controller
           print_r($e);exit;
         }
 
+        print_r($result_curl);exit;
+
 
     }
 
