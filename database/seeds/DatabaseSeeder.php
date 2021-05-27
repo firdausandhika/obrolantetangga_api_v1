@@ -11,10 +11,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-      \DB::table('admins')->insert([
-          'username' => 'admin',
-          'email' => 'admin@gmail.com',
-          'password' => Hash::make('admin'),
-      ]);
+      // \DB::table('admins')->insert([
+      //     'username' => 'admin',
+      //     'email' => 'admin@gmail.com',
+      //     'password' => Hash::make('admin'),
+      // ]);
     }
 }

@@ -26,7 +26,7 @@ class AdsController extends V1Controller
      */
     public function index()
     {
-
+      return IklanDefault::get();
         $iklan_default_mobile = IklanDefault::whereDevice('Mobile')->get();
         // $this->res->data = ['iklans'=> $iklan_default_mobile];
         $data[0]['letak'] = 'trending';
