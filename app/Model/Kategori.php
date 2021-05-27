@@ -14,6 +14,6 @@ class Kategori extends Model
     protected $hidden = ['deleted_at','updated_at','kategori_id','user_id','jenis_id'];
 
     public function getImageUrlAttribute(){
-      return env('APP_URL')."/frontend/asset/img/kategori"."/".$this->icon;
+      return "https://obrolantetangga.com/frontend/asset/img/kategori"."/".$this->icon;
     }
 }
