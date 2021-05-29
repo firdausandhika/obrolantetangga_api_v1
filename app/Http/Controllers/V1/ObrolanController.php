@@ -111,6 +111,7 @@ class ObrolanController extends V1Controller
                       ObrolanVideo::create([
                         'obrolan_id' => $obrolan->id,
                         'video' => $url."/".$base_folder_gambar."/".$name_file,
+                        'image_review'=>"https://obrolantetangga.com/frontend/asset/img/logo1.png"
                       ]);
                     }else{
                       ObrolanGambar::create([
