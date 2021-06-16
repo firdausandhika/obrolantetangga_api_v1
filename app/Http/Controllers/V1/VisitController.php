@@ -139,7 +139,7 @@ class VisitController extends V1Controller
                try {
                    $extension = $file->extension();
                    $name_file = $this->user->unik_user . Str::random(5) . '.' . $extension;
-                   Storage::disk('gcs')->putFileAs($base_folder_video, $file, $name_file);
+                   Storage::disk('gcs')->putFileAs($base_folder_gambar, $file, $name_file);
 
                    // proses kompresi
                    $syntax0 = [
