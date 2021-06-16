@@ -30,16 +30,20 @@ class AdsController extends V1Controller
         // $this->res->data = ['iklans'=> $iklan_default_mobile];
         $data[0]['letak'] = 'trending';
         $data[0]['image'] = '';
+        $data[0]['id'] = '';
 
         $data[1]['letak'] = 'iklan_baris';
         $data[1]['image'] = '';
+        $data[1]['id'] = '';
         foreach ($iklan_default_mobile as $key => $value) {
             if($value->letak == 'Trending'){
                 $data[0]['image'] = $value->foto_iklan;
+                $data[0]['id'] = $value->id;
             }
 
             if($value->letak == 'IklanBaris'){
                 $data[1]['image'] = "https://obrolantetangga.com/".$value->foto_iklan;
+                $data[1]['id'] = $value->id;
             }
         }
 
