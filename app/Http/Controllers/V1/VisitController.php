@@ -110,6 +110,13 @@ class VisitController extends V1Controller
        }
 
            try {
+
+             $base_auth = auth()->user()->unik_user;
+             $base_folder = "{$base_auth}/obrolan";
+             $base_folder_gambar = "{$base_auth}/obrolan/gambar";
+             $base_folder_video = "{$base_auth}/obrolan/video";
+
+             
              $obrolan = Obrolan::create([
                'kategori_id'=>$request->kategori_id,
                'user_id'=>$this->user->id,
@@ -158,7 +165,7 @@ class VisitController extends V1Controller
 
                    ObrolanGambar::create([
                      'obrolan_id' => $obrolan->id,
-                     'gambar' => $name_file,
+                     'gambar' => $url."/".$base_folder_gambar."/".$name_file,
                    ]);
                  } catch (\Exception $e) {
                    return $e;
@@ -195,7 +202,7 @@ class VisitController extends V1Controller
 
                      ObrolanVideo::create([
                        'obrolan_id' => $obrolan->id,
-                       'video' => $name_file,
+                       'video' => $url."/".$base_folder_video."/".$name_file,
                      ]);
                    } catch (\Exception $e) {
                      return $e;
