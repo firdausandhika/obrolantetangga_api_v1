@@ -168,10 +168,24 @@ class VisitController extends V1Controller
 
                    $name[] = $name_file;
 
-                   ObrolanGambar::create([
-                     'obrolan_id' => $obrolan->id,
-                     'gambar' => $url."/".$base_folder_gambar."/".$name_file,
-                   ]);
+                   // ObrolanGambar::create([
+                   //   'obrolan_id' => $obrolan->id,
+                   //   'gambar' => $url."/".$base_folder_gambar."/".$name_file,
+                   // ]);
+
+                   if($extension =='mp4'){
+                     ObrolanVideo::create([
+                       'obrolan_id' => $obrolan->id,
+                       'video' => $url."/".$base_folder_gambar."/".$name_file,
+                       // 'image_review'=>"https://obrolantetangga.com/frontend/asset/img/logo1.png"
+                     ]);
+                   }else{
+                     ObrolanGambar::create([
+                       'obrolan_id' => $obrolan->id,
+                       'gambar' => $url."/".$base_folder_gambar."/".$name_file,
+                     ]);
+                   }
+
                  } catch (\Exception $e) {
                    return $e;
                  }
