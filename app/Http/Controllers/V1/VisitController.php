@@ -68,6 +68,10 @@ class VisitController extends V1Controller
        ->where("wilayah", "like", "%{$kode_kota}%")
        ->limit(5);
 
+       if ($request->kategori_id) {
+         $query->whereKategoriId($request->kategori_id);
+       }
+
        $obrolans =  $query->get();
 
        $this->obv->view($obrolans,$this->user,$next_token);
