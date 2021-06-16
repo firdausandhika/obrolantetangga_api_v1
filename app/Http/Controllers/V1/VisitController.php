@@ -110,13 +110,14 @@ class VisitController extends V1Controller
        }
 
            try {
+             $url = "https://storage.googleapis.com/obrolantetangga";
 
              $base_auth = auth()->user()->unik_user;
              $base_folder = "{$base_auth}/obrolan";
              $base_folder_gambar = "{$base_auth}/obrolan/gambar";
              $base_folder_video = "{$base_auth}/obrolan/video";
 
-             
+
              $obrolan = Obrolan::create([
                'kategori_id'=>$request->kategori_id,
                'user_id'=>$this->user->id,
