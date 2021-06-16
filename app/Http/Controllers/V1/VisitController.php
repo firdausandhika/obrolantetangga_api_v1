@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 use Storage;
 use App\Http\Controllers\V1\ObrolanController;
 
+use App\Model\ObrolanGambar;
+use App\Model\ObrolanVideo;
 
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
