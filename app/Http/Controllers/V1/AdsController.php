@@ -42,7 +42,7 @@ class AdsController extends V1Controller
             }
 
             if($value->letak == 'IklanBaris'){
-                $data[1]['image'] = "https://obrolantetangga.com/".$value->foto_iklan;
+                $data[1]['image'] = $value->foto_iklan;
                 // $data[1]['id'] = $value->id;
             }
         }
