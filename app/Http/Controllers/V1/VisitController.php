@@ -204,7 +204,19 @@ class VisitController extends V1Controller
                }
 
            $this->res->msg   = "Success";
-           $this->res->data  =  ['obrolan'=>$obrolan];
+           $this->res->data  =  ['obrolan'=>Obrolan::whereId($obrolan->id)
+           ->with('kategori')
+           ->with('obrolan_gambar')
+           ->with('user')
+           ->first()
+           ->append('provinsi_data')
+           ->append('kota_data')
+           ->append('kecamatan_data')
+           ->append('kelurahan_data')
+           ->append('is_like')
+           ->append('is_dislike')
+           ->append('media')
+         ];
            return \response()->json($this->res);
      }
 
