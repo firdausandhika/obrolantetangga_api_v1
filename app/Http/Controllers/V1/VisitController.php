@@ -6,7 +6,7 @@ use App\Http\Controllers\V1\V1Controller;;
 use Illuminate\Http\Request;
 use App\Model\Obrolan;
 use Illuminate\Support\Str;
-
+use Storage;
 use App\Http\Controllers\V1\ObrolanController;
 
 class VisitController extends V1Controller
