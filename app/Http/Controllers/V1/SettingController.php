@@ -8,6 +8,7 @@ use App\Model\User;
 use App\Model\Obrolan;
 use Hash;
 use \Carbon\Carbon;
+use JWTAuth;
 
 
 class SettingController extends V1Controller
@@ -115,6 +116,7 @@ class SettingController extends V1Controller
 
       $this->res->msg   = "Success";
       $this->res->data   = ["user"=>User::find($this->user->id)];
+      JWTAuth::invalidate(JWTAuth::getToken());
       return \response()->json($this->res);
     }
 
@@ -164,9 +166,9 @@ class SettingController extends V1Controller
       if (!isset($input['seks'])) {
         $input['seks'] = $input['sex'];
         unset($input['sex']);
-        
+
       }
-      
+
       unset($input['sex']);
 
       $user = User::find($this->user->id);
