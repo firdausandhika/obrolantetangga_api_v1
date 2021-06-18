@@ -60,7 +60,7 @@ class SettingController extends V1Controller
       $this->res->msg   = "Success";
       auth()->logoutOtherDevices($request->password_baru);
       auth()->logout();
-      auth('api')->logout();
+      JWTAuth::invalidate(JWTAuth::getToken());
       return \response()->json($this->res);
     }
 
