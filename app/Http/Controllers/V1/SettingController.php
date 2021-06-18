@@ -58,7 +58,7 @@ class SettingController extends V1Controller
       }
 
       $this->res->msg   = "Success";
-      auth()->logoutOtherDevices();
+      auth()->logoutOtherDevices($request->password_baru);
       auth()->logout();
       return \response()->json($this->res);
     }
