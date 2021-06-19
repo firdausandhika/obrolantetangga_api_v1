@@ -157,4 +157,18 @@ class AvatarController extends V1Controller
     {
         //
     }
+
+    public function new_member_posting($user)
+    {
+      Obrolan::create(
+        [
+          'kontent'=> "Apa kabar warga (OT) ObrolanTetangga. Saya warga baru dari kelurahan <b>{$user->_kelurahan->nama}</b>",
+          'kategori_id'=>10,
+          'user_id'=>$user->id,
+          'wilayah'=>$user->kelurahan,
+          'unik'=> Str::random(20),
+          'current_wilayah_user'=>$user->kelurahan,
+        ]
+      );
+    }
 }

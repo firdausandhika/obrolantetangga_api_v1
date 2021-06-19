@@ -1,0 +1,5 @@
+1. jam bermasalah (antara mobile dan website)
+2. edit obrolan masih salah
+3. trending (api)
+4. informasi pada edit profile tidak berubah ketika diupdate
+5. laporkan

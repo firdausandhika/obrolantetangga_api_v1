@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
       //     'password' => Hash::make('admin'),
       // ]);
 
-      // IklanDefault::whereIn('id',[2,4])->update([
-      //   'foto_iklan'=>"https://storage.cloud.google.com/obrolantetangga/iklan_defaults/banner%20surasama.jpg"
-      // ]);
+      IklanDefault::whereIn('id',[2,4])->update([
+        'foto_iklan'=>"https://storage.googleapis.com/obrolantetangga/iklan_defaults/banner%20surasama.jpg"
+      ]);
     }
 }

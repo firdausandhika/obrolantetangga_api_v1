@@ -382,7 +382,7 @@ class AuthController extends V1Controller
     {
       Obrolan::create(
         [
-          'kontent'=> "Salam kenal warga (OT) ObrolanTetangga. Saya <b>{$user->nama}</b>, warga baru dari kelurahan <b>{$user->_kelurahan->nama}</b>",
+          'kontent'=> "Apa kabar warga (OT) ObrolanTetangga. Saya warga baru dari kelurahan <b>{$user->_kelurahan->nama}</b>",
           'kategori_id'=>10,
           'user_id'=>$user->id,
           'wilayah'=>$user->kelurahan,
