@@ -245,7 +245,7 @@ class AuthController extends V1Controller
         }
         //
         //
-        print_r($result_curl);exit;
+        return response()->json(['success'=>true, 'request'=>$request->except('_token'),'msg' =>'SMS Telah Dikirim'],201);
         // print_r(["sampai sini fin 123",$result_curl]);exit;
 
 
