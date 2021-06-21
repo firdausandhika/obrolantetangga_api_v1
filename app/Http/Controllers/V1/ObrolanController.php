@@ -71,7 +71,7 @@ class ObrolanController extends V1Controller
               'user_id'=>$this->user->id,
               'wilayah'=>$wilayah,
               'unik'=> Str::random(20),
-              'kontent'=>\nl2br(htmlspecialchars($request->kontent))." - ".Carbon::now(),
+              'kontent'=>\nl2br(htmlspecialchars($request->kontent)),
               'poin'=>0,
               'current_wilayah_user'=>$this->user->kelurahan,
             ]);
