@@ -211,7 +211,7 @@ class AuthController extends V1Controller
             'token' => str_replace('-', '', $this->makeUuid())
         ]);
         // dd($user);
-        $message = "Ini adalah Link rahasia untuk mereset password akun ObrolanTetangga anda https://obrolantetanngga.com/" . "reset_password" . "/" . $password_reset->token . ". Silahkan klik atau buka Link tersebut pada browser anda. Jangan sebarkan kepada siapapun bahkan kepada pihak ObrolanTetangga sekalipun. Hati-hati penipuan!";
+        $message = "Ini adalah Link rahasia untuk mereset password akun ObrolanTetangga anda https://obrolantetangga.com/" . "reset_password" . "/" . $password_reset->token . ". Silahkan klik atau buka Link tersebut pada browser anda. Jangan sebarkan kepada siapapun bahkan kepada pihak ObrolanTetangga sekalipun. Hati-hati penipuan!";
         // dd("+62".$users->phone);
         $key_demo = "403fc2c39aaa00177ef810d4fffa069382587eab7506c7c4";
         $url = "http://116.203.191.58/api/send_message";
