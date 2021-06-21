@@ -96,11 +96,12 @@ class SettingController extends V1Controller
       $t2 = Carbon::parse($this->user->updated_at);
       $diff_d = $t1->diffInDays($t2);
       // return $request->kota;
-      if ($diff_d < 3) {
-        $this->res->success = false;
-        $this->res->msg = "Mengganti Kota Hanya Bisa 3 Hari Sekali";
-        return \response()->json($this->res);
-      }
+
+      // if ($diff_d < 3) {
+      //   $this->res->success = false;
+      //   $this->res->msg = "Mengganti Kota Hanya Bisa 3 Hari Sekali";
+      //   return \response()->json($this->res);
+      // }
 
       $user = User::find($this->user->id);
 
@@ -126,12 +127,12 @@ class SettingController extends V1Controller
     public function change_info(Request $request)
     {
 
-      if ($request->kelurahan != $this->user->kelurahan) {
-        $this->res->success = false;
-        $this->res->msg = "kota berubah";
-        Storage::disk('gcs')->put( '123_myfile.txt', json_encode($request->except('_token')));
-        return \response()->json($this->res);
-      }
+      // if ($request->kelurahan != $this->user->kelurahan) {
+      //   $this->res->success = false;
+      //   $this->res->msg = "kota berubah";
+      //   Storage::disk('gcs')->put( '123_myfile.txt', json_encode($request->except('_token')));
+      //   return \response()->json($this->res);
+      // }
       if ($request->nama == null) {
         $this->res->success = false;
         $this->res->msg = "nama tidak boleh kosong";
