@@ -152,69 +152,17 @@ class AuthController extends V1Controller
       return response()->json(['success'=>true, 'request'=>$request->except('_token'),'msg' =>'SMS Telah Dikirim','user'=>$user],201);
     }
 
-    public function send_sms_link_reset($password_reset,$users)
-    {
-        // print_r([env('KEY_WA_DEMO'),env('URL_WA'),env('AUTH_WA_KEY')]);exit;
-        $number = '85393366485';
-
-
-        // dd($user);
-        $message = "Ini adalah Link rahasia untuk mereset password akun ObrolanTetangga anda. Silahkan klik atau buka Link tersebut pada browser anda. Jangan sebarkan kepada siapapun bahkan kepada pihak ObrolanTetangga sekalipun. Hati-hati penipuan!";
-        // dd("+62".$users->phone);
-        $key_demo = "403fc2c39aaa00177ef810d4fffa069382587eab7506c7c4";
-        $url = "http://116.203.191.58/api/send_message";
-        $data = array(
-            "phone_no" => "+62" . $users->phone,
-            "key"     => $key_demo,
-            "message" => $message
-        );
-
-        $data_string = json_encode($data, 1);
-
-        try {
-          $ch = curl_init($url);
-          curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-          curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-          curl_setopt($ch, CURLOPT_VERBOSE, 0);
-          curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
-          curl_setopt($ch, CURLOPT_TIMEOUT, 900);
-          curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-          curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-          curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-              'Content-Type: application/json',
-              'Content-Length: ' . strlen($data_string),
-              'Authorization: Basic dXNtYW5ydWJpYW50b3JvcW9kcnFvZHJiZWV3b293YToyNjM3NmVkeXV3OWUwcmkzNDl1ZA=='
-          ));
-          $result_curl  = curl_exec($ch);
-          curl_close($ch);
-        } catch (\Exception $e) {
-          print_r($e);exit;
-        }
-
-        print_r($result_curl);exit;
-
-
-    }
-
     // public function send_sms_link_reset($password_reset,$users)
     // {
     //     // print_r([env('KEY_WA_DEMO'),env('URL_WA'),env('AUTH_WA_KEY')]);exit;
-    //     $number = $users->nomor;
-    //     $rtrim = $number - rtrim('0');
-    //     // $users = User::wherePhone($rtrim)->first();
-    //     // dd($users);
+    //     $number = '85393366485';
     //
-    //     // $user =  User::wherePhone($users)->first();
-    //     $password_reset = PasswordReset::create([
-    //         'unik_user' => $users->unik_user,
-    //         'token' => str_replace('-', '', $this->makeUuid())
-    //     ]);
+    //
     //     // dd($user);
-    //     $message = "Ini adalah Link rahasia untuk mereset password akun ObrolanTetangga anda https://obrolantetanngga.com/" . "reset_password" . "/" . $password_reset->token . ". Silahkan klik atau buka Link tersebut pada browser anda. Jangan sebarkan kepada siapapun bahkan kepada pihak ObrolanTetangga sekalipun. Hati-hati penipuan!";
+    //     $message = "Ini adalah Link rahasia untuk mereset password akun ObrolanTetangga anda. Silahkan klik atau buka Link tersebut pada browser anda. Jangan sebarkan kepada siapapun bahkan kepada pihak ObrolanTetangga sekalipun. Hati-hati penipuan!";
     //     // dd("+62".$users->phone);
-    //     $key_demo =env('KEY_WA_DEMO');
-    //     $url = env('URL_WA');
+    //     $key_demo = "403fc2c39aaa00177ef810d4fffa069382587eab7506c7c4";
+    //     $url = "http://116.203.191.58/api/send_message";
     //     $data = array(
     //         "phone_no" => "+62" . $users->phone,
     //         "key"     => $key_demo,
@@ -230,65 +178,117 @@ class AuthController extends V1Controller
     //       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     //       curl_setopt($ch, CURLOPT_VERBOSE, 0);
     //       curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
-    //       // curl_setopt($ch, CURLOPT_TIMEOUT, 100);
+    //       curl_setopt($ch, CURLOPT_TIMEOUT, 900);
     //       curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
     //       curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
     //       curl_setopt($ch, CURLOPT_HTTPHEADER, array(
     //           'Content-Type: application/json',
     //           'Content-Length: ' . strlen($data_string),
-    //           'Authorization: Basic '.env('AUTH_WA_KEY')
+    //           'Authorization: Basic dXNtYW5ydWJpYW50b3JvcW9kcnFvZHJiZWV3b293YToyNjM3NmVkeXV3OWUwcmkzNDl1ZA=='
     //       ));
     //       $result_curl  = curl_exec($ch);
     //       curl_close($ch);
     //     } catch (\Exception $e) {
     //       print_r($e);exit;
     //     }
-    //     //
-    //     //
-    //     // print_r($result_curl);exit;
-    //     print_r(["sampai sini fin 123",$result_curl]);exit;
     //
+    //     print_r($result_curl);exit;
     //
-    //   // // KIRIM SMS
-    //   //   // setting
-    //   //   $apikey      = 'ba303b7838da487b5b00d36c03941f57'; // api key
-    //   //   $urlendpoint = 'http://sms114.xyz/sms/api_sms_otp_send_json.php'; // url endpoint api
-    //   //   $callbackurl = ''; // url callback get status sms
-    //   //
-    //   //   // create header json
-    //   //   $senddata = array(
-    //   //       'apikey' => $apikey,
-    //   //       'callbackurl' => $callbackurl,
-    //   //       'datapacket' => array()
-    //   //   );
-    //   //
-    //   //   if ($user->phone[0] != '0') {
-    //   //     $user->phone = '0'.$user->phone;
-    //   //   }
-    //   //
-    //   //   // create detail data json
-    //   //   $wew = \URL::to('/')."/"."reset_password"."/".$password_reset->token;
-    //   //   $message = "[obrolantetangga] Klik tautan ini untuk mengganti password ".$wew;
-    //   //   array_push($senddata['datapacket'], array(
-    //   //       'number' => $user->phone,
-    //   //       'message' => $message
-    //   //   ));
-    //   //   // sending
-    //   //   $request = json_encode($senddata);
-    //   //   $curlHandle = curl_init($urlendpoint);
-    //   //   curl_setopt($curlHandle, CURLOPT_CUSTOMREQUEST, "POST");
-    //   //   curl_setopt($curlHandle, CURLOPT_POSTFIELDS, $request);
-    //   //   curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
-    //   //   curl_setopt($curlHandle, CURLOPT_HTTPHEADER, array(
-    //   //       'Content-Type: application/json',
-    //   //       'Content-Length: ' . strlen($request)
-    //   //   ));
-    //   //   curl_setopt($curlHandle, CURLOPT_TIMEOUT, 30);
-    //   //   curl_setopt($curlHandle, CURLOPT_CONNECTTIMEOUT, 30);
-    //   //   $respon = curl_exec($curlHandle);
-    //   //   curl_close($curlHandle);
     //
     // }
+
+    public function send_sms_link_reset($password_reset,$users)
+    {
+        // print_r([env('KEY_WA_DEMO'),env('URL_WA'),env('AUTH_WA_KEY')]);exit;
+        $number = $users->nomor;
+        $rtrim = $number - rtrim('0');
+        // $users = User::wherePhone($rtrim)->first();
+        // dd($users);
+
+        // $user =  User::wherePhone($users)->first();
+        $password_reset = PasswordReset::create([
+            'unik_user' => $users->unik_user,
+            'token' => str_replace('-', '', $this->makeUuid())
+        ]);
+        // dd($user);
+        $message = "Ini adalah Link rahasia untuk mereset password akun ObrolanTetangga anda https://obrolantetanngga.com/" . "reset_password" . "/" . $password_reset->token . ". Silahkan klik atau buka Link tersebut pada browser anda. Jangan sebarkan kepada siapapun bahkan kepada pihak ObrolanTetangga sekalipun. Hati-hati penipuan!";
+        // dd("+62".$users->phone);
+        $key_demo =env('KEY_WA_DEMO');
+        $url = env('URL_WA');
+        $data = array(
+            "phone_no" => "+62" . $users->phone,
+            "key"     => $key_demo,
+            "message" => $message
+        );
+
+        $data_string = json_encode($data, 1);
+
+        try {
+          $ch = curl_init($url);
+          curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+          curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+          curl_setopt($ch, CURLOPT_VERBOSE, 0);
+          curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
+          // curl_setopt($ch, CURLOPT_TIMEOUT, 100);
+          curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+          curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+          curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+              'Content-Type: application/json',
+              'Content-Length: ' . strlen($data_string),
+              'Authorization: Basic '.env('AUTH_WA_KEY')
+          ));
+          $result_curl  = curl_exec($ch);
+          curl_close($ch);
+        } catch (\Exception $e) {
+          print_r($e);exit;
+        }
+        //
+        //
+        // print_r($result_curl);exit;
+        print_r(["sampai sini fin 123",$result_curl]);exit;
+
+
+      // // KIRIM SMS
+      //   // setting
+      //   $apikey      = 'ba303b7838da487b5b00d36c03941f57'; // api key
+      //   $urlendpoint = 'http://sms114.xyz/sms/api_sms_otp_send_json.php'; // url endpoint api
+      //   $callbackurl = ''; // url callback get status sms
+      //
+      //   // create header json
+      //   $senddata = array(
+      //       'apikey' => $apikey,
+      //       'callbackurl' => $callbackurl,
+      //       'datapacket' => array()
+      //   );
+      //
+      //   if ($user->phone[0] != '0') {
+      //     $user->phone = '0'.$user->phone;
+      //   }
+      //
+      //   // create detail data json
+      //   $wew = \URL::to('/')."/"."reset_password"."/".$password_reset->token;
+      //   $message = "[obrolantetangga] Klik tautan ini untuk mengganti password ".$wew;
+      //   array_push($senddata['datapacket'], array(
+      //       'number' => $user->phone,
+      //       'message' => $message
+      //   ));
+      //   // sending
+      //   $request = json_encode($senddata);
+      //   $curlHandle = curl_init($urlendpoint);
+      //   curl_setopt($curlHandle, CURLOPT_CUSTOMREQUEST, "POST");
+      //   curl_setopt($curlHandle, CURLOPT_POSTFIELDS, $request);
+      //   curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
+      //   curl_setopt($curlHandle, CURLOPT_HTTPHEADER, array(
+      //       'Content-Type: application/json',
+      //       'Content-Length: ' . strlen($request)
+      //   ));
+      //   curl_setopt($curlHandle, CURLOPT_TIMEOUT, 30);
+      //   curl_setopt($curlHandle, CURLOPT_CONNECTTIMEOUT, 30);
+      //   $respon = curl_exec($curlHandle);
+      //   curl_close($curlHandle);
+
+    }
 
   public function send_otp_phone($user)
   {
