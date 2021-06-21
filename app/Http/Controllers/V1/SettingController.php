@@ -162,11 +162,11 @@ class SettingController extends V1Controller
         return \response()->json($this->res);
       }
 
-      if ($request->biografi == null) {
-        $this->res->success = false;
-        $this->res->msg = "biografi tidak boleh kosong";
-        return \response()->json($this->res);
-      }
+      // if ($request->biografi == null) {
+      //   $this->res->success = false;
+      //   $this->res->msg = "biografi tidak boleh kosong";
+      //   return \response()->json($this->res);
+      // }
 
       $input = $request->all();
       if ($input['phone'][0] == '0') {
