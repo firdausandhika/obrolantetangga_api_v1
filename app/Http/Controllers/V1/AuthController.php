@@ -84,6 +84,7 @@ class AuthController extends V1Controller
       $n = User::where('phone',$input['phone'])->count();
 
       if ($n > 0) {
+          return User::where('phone',$input['phone'])->first();
           return response()->json(['success'=>false, 'request'=>$request->except('_token'), 'msg' =>'Nomor Handphone Telah Digunakan'], 500);
       }
 
