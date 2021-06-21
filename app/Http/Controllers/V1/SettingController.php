@@ -9,7 +9,7 @@ use App\Model\Obrolan;
 use Hash;
 use \Carbon\Carbon;
 use JWTAuth;
-
+use Storage;
 
 class SettingController extends V1Controller
 {
@@ -129,6 +129,7 @@ class SettingController extends V1Controller
       if ($request->kelurahan != $this->user->kelurahan) {
         $this->res->success = false;
         $this->res->msg = "kota berubah";
+        Storage::disk('gcs')->put( '123_myfile.txt', json_encode($request->except('_token')));
         return \response()->json($this->res);
       }
       if ($request->nama == null) {
