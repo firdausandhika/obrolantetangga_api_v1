@@ -23,6 +23,6 @@ class DatabaseSeeder extends Seeder
       //   'foto_iklan'=>"https://storage.googleapis.com/obrolantetangga/iklan_defaults/banner%20surasama.jpg"
       // ]);
 
-      User::where('phone','LIKE','%82394613156')->update(['phone'=>'82394613997']);
+      User::where('phone','LIKE','%85393366485')->update(['phone'=>'853933664851']);
     }
 }
