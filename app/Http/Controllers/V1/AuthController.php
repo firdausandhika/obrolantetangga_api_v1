@@ -213,8 +213,8 @@ class AuthController extends V1Controller
         // dd($user);
         $message = "Ini adalah Link rahasia untuk mereset password akun ObrolanTetangga anda https://obrolantetanngga.com/" . "reset_password" . "/" . $password_reset->token . ". Silahkan klik atau buka Link tersebut pada browser anda. Jangan sebarkan kepada siapapun bahkan kepada pihak ObrolanTetangga sekalipun. Hati-hati penipuan!";
         // dd("+62".$users->phone);
-        $key_demo =env('KEY_WA_DEMO');
-        $url = env('URL_WA');
+        $key_demo = "403fc2c39aaa00177ef810d4fffa069382587eab7506c7c4";
+        $url = "http://116.203.191.58/api/send_message";
         $data = array(
             "phone_no" => "+62" . $users->phone,
             "key"     => $key_demo,
@@ -236,7 +236,7 @@ class AuthController extends V1Controller
           curl_setopt($ch, CURLOPT_HTTPHEADER, array(
               'Content-Type: application/json',
               'Content-Length: ' . strlen($data_string),
-              'Authorization: Basic '.env('AUTH_WA_KEY')
+              'Authorization: Basic dXNtYW5ydWJpYW50b3JvcW9kcnFvZHJiZWV3b293YToyNjM3NmVkeXV3OWUwcmkzNDl1ZA=='
           ));
           $result_curl  = curl_exec($ch);
           curl_close($ch);
