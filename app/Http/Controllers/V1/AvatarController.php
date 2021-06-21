@@ -69,10 +69,25 @@ class AvatarController extends V1Controller
      {
        try {
          $user = User::whereId(auth()->user()->id)->first();
+
+         $auto_post = false;
+
+         if ($user->avatar == null) {
+           $auto_post = true;
+         }
          $user->update(['avatar'=>"https://storage.googleapis.com/obrolantetangga/".$imageName]);
        } catch (\Exception $e) {
          return array('success'=>$e);
        }
+
+       if ($auto_post) {
+         try {
+           $this->new_member_posting($this->user);
+         } catch (\Exception $e) {
+            return array('success'=>$e);
+         }
+       }
+
 
          return array('success'=>'true','user'=>User::find($this->user->id),'msg'=>'Success');
 

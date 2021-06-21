@@ -378,7 +378,7 @@ class AuthController extends V1Controller
       }
 
       $user = User::with('_kota')->with('_kecamatan')->with('_kelurahan')->whereId($user_jwt->id)->first();
-      $this->new_member_posting($user);
+      // $this->new_member_posting($user);
       $user->update(['active'=>1]);
       return response()->json(['success'=>true, 'msg' =>'Akun Anda telah aktif', 'user'=>$user_jwt,'request'=>$request->except('_token')]);
 
