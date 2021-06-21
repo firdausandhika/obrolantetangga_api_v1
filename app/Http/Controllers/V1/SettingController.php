@@ -125,6 +125,12 @@ class SettingController extends V1Controller
 
     public function change_info(Request $request)
     {
+
+      if ($request->kelurahan != $this->user->kelurahan) {
+        $this->res->success = false;
+        $this->res->msg = "kota berubah";
+        return \response()->json($this->res);
+      }
       if ($request->nama == null) {
         $this->res->success = false;
         $this->res->msg = "nama tidak boleh kosong";

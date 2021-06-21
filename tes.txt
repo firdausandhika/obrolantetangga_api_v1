@@ -2,4 +2,4 @@
 2. edit obrolan masih salah
 3. trending (api)
 4. informasi pada edit profile tidak berubah ketika diupdate
-5. laporkan
+5. kategori laporkan tidak sesuai dengan di web
