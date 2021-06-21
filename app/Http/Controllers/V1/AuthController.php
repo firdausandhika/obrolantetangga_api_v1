@@ -84,8 +84,14 @@ class AuthController extends V1Controller
       $n = User::where('phone',$input['phone'])->count();
 
       if ($n > 0) {
-          return User::where('phone',$input['phone'])->first();
-          return response()->json(['success'=>false, 'request'=>$request->except('_token'), 'msg' =>'Nomor Handphone Telah Digunakan'], 500);
+          $user_tmp =  User::where('phone',$input['phone'])->first();
+          if ($user_tmp->active > 0){
+            return response()->json(['success'=>false, 'request'=>$request->except('_token'), 'msg' =>'Nomor Handphone Telah Digunakan'], 500);
+          }
+
+          $user_tmp->delete();
+          // return response()->json(['success'=>true, 'request'=>$request->except('_token'), 'msg' =>'Registerasi Berhasil','user'=>$user,'token'=>$token],201);
+
       }
 
       $dn             = Carbon::now();
