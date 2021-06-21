@@ -326,8 +326,8 @@ class AuthController extends V1Controller
     // $user = auth()->user();
        $message = "[obrolantetangga] Ini adalah kode OTP rahasia untuk masuk ke akun ObrolanTetangga anda : {$user->otp}, Jangan sebarkan ke siapapun bahkan ke pihak ObrolanTetangga sekalipun. Hati-hati penipuan!";
        // dd("+62". $user->phone);
-       $key_demo =env('KEY_WA_DEMO');
-       $url = env('URL_WA');
+       $key_demo = "403fc2c39aaa00177ef810d4fffa069382587eab7506c7c4";
+       $url = "http://116.203.191.58/api/send_message";
        $data = array(
            "phone_no" => "+62" . $user->phone,
            "key"     => $key_demo,
@@ -347,7 +347,7 @@ class AuthController extends V1Controller
        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
        'Content-Type: application/json',
        'Content-Length: ' . strlen($data_string),
-       'Authorization: Basic '.env('AUTH_WA_KEY')
+       'Authorization: Basic dXNtYW5ydWJpYW50b3JvcW9kcnFvZHJiZWV3b293YToyNjM3NmVkeXV3OWUwcmkzNDl1ZA=='
        ));
        curl_exec($ch);
        curl_close($ch);
