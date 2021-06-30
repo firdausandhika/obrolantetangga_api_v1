@@ -136,18 +136,21 @@ class SettingController extends V1Controller
       if ($request->nama == null) {
         $this->res->success = false;
         $this->res->msg = "nama tidak boleh kosong";
+        $this->res->data = new \stdClass();
         return \response()->json($this->res);
       }
 
       if ($request->email == null) {
         $this->res->success = false;
         $this->res->msg = "email tidak boleh kosong";
+        $this->res->data = new \stdClass();
         return \response()->json($this->res);
       }
 
       if ($request->phone == null) {
         $this->res->success = false;
         $this->res->msg = "phone tidak boleh kosong";
+        $this->res->data = new \stdClass();
         return \response()->json($this->res);
       }
 
@@ -160,6 +163,7 @@ class SettingController extends V1Controller
       if ($request->seks == null && $request->sex == null) {
         $this->res->success = false;
         $this->res->msg = "jenis kelamin tidak boleh kosong";
+        $this->res->data = new \stdClass();
         return \response()->json($this->res);
       }
 
