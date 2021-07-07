@@ -97,11 +97,12 @@ class SettingController extends V1Controller
       $diff_d = $t1->diffInDays($t2);
       // return $request->kota;
 
-      // if ($diff_d < 3) {
-      //   $this->res->success = false;
-      //   $this->res->msg = "Mengganti Kota Hanya Bisa 3 Hari Sekali";
-      //   return \response()->json($this->res);
-      // }
+      if ($diff_d < 14) {
+        $this->res->success = false;
+        $this->res->msg = "Mengganti Kota Hanya Bisa 14 Hari Sekali";
+        $this->res->data = new \stdClass();
+        return \response()->json($this->res);
+      }
 
       $user = User::find($this->user->id);
 
