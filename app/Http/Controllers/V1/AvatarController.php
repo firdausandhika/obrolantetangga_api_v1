@@ -177,7 +177,7 @@ class AvatarController extends V1Controller
     {
       Obrolan::create(
         [
-          'kontent'=> "Apa kabar warga (OT) ObrolanTetangga. Saya warga baru dari kelurahan <b>{$user->_kelurahan->nama}</b>",
+          'kontent'=> "Apa kabar warga ObrolanTetangga (OT). Saya warga baru dari kelurahan <b>{$user->_kelurahan->nama}</b>",
           'kategori_id'=>10,
           'user_id'=>$user->id,
           'wilayah'=>$user->kelurahan,
